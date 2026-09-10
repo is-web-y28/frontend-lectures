@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="220" viewBox="0 0 520 220" role="img" aria-labelledby="title description">
+  <title id="title">Спикер перед аудиторией</title>
+  <desc id="description">Человек выступает перед экраном, внизу изображены слушатели.</desc>
+  <rect width="520" height="220" fill="#f8fafc"/>
+  <rect x="130" y="25" width="260" height="120" rx="8" fill="#e0f2fe" stroke="#075985" stroke-width="4"/>
+  <path d="M185 70h150M185 95h100M185 120h125" stroke="#075985" stroke-width="10" stroke-linecap="round" opacity=".75"/>
+  <circle cx="260" cy="142" r="18" fill="#be123c"/>
+  <path d="M260 160v32M240 176h40M248 213h24" stroke="#be123c" stroke-width="9" stroke-linecap="round"/>
+  <rect x="242" y="166" width="36" height="42" rx="4" fill="#be123c"/>
+  <path d="M105 212c0-25 40-25 40 0M175 212c0-25 40-25 40 0M305 212c0-25 40-25 40 0M375 212c0-25 40-25 40 0" fill="#172033"/>
+  <circle cx="125" cy="188" r="13" fill="#172033"/>
+  <circle cx="195" cy="188" r="13" fill="#172033"/>
+  <circle cx="325" cy="188" r="13" fill="#172033"/>
+  <circle cx="395" cy="188" r="13" fill="#172033"/>
+</svg>

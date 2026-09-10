@@ -1,0 +1,133 @@
+:root {
+  --lecture-ink: #172033;
+  --lecture-muted: #536176;
+  --lecture-accent: #075985;
+  --lecture-accent-soft: #e0f2fe;
+  --lecture-border: #cbd5e1;
+  --lecture-border-strong: #94a3b8;
+  --lecture-surface: #f8fafc;
+  --lecture-surface-raised: #ffffff;
+  --lecture-code-ink: #0f3f60;
+  --lecture-focus: #bae6fd;
+  --lecture-success-surface: #dcfce7;
+  --lecture-success: #15803d;
+  --lecture-danger-surface: #fee2e2;
+  --lecture-danger: #b91c1c;
+}
+
+.dark {
+  --lecture-ink: #e2e8f0;
+  --lecture-muted: #a8b3c7;
+  --lecture-accent: #7dd3fc;
+  --lecture-accent-soft: #0c4a6e;
+  --lecture-border: #334155;
+  --lecture-border-strong: #64748b;
+  --lecture-surface: #172033;
+  --lecture-surface-raised: #1e293b;
+  --lecture-code-ink: #bae6fd;
+  --lecture-focus: #1e3a5f;
+  --lecture-success-surface: #14532d;
+  --lecture-success: #86efac;
+  --lecture-danger-surface: #7f1d1d;
+  --lecture-danger: #fca5a5;
+}
+
+.slidev-layout {
+  color: var(--lecture-ink);
+  font-size: 1.08rem;
+  line-height: 1.5;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  color: var(--lecture-ink);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.slidev-layout h1 {
+  font-size: 2.8rem;
+}
+
+.slidev-layout h2 {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.slidev-layout a {
+  color: var(--lecture-accent);
+  text-underline-offset: 0.18em;
+}
+
+.slidev-layout code {
+  background: var(--lecture-accent-soft);
+  border-radius: 0.2rem;
+  color: var(--lecture-code-ink);
+  padding: 0.08em 0.25em;
+}
+
+.slidev-layout pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.slidev-layout blockquote {
+  border-left: 0.3rem solid var(--lecture-accent);
+  color: var(--lecture-muted);
+  padding-left: 1rem;
+}
+
+.slidev-layout .lead {
+  color: var(--lecture-muted);
+  font-size: 1.3rem;
+}
+
+.slidev-layout .accent {
+  color: var(--lecture-accent);
+  font-weight: 700;
+}
+
+
+.slidev-layout .comparison {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.slidev-layout .card {
+  background: var(--lecture-surface);
+  border: 1px solid var(--lecture-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.2rem;
+}
+
+.slidev-layout .card h3 {
+  font-size: 1.3rem;
+  margin-top: 0;
+}
+
+.slidev-layout .checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slidev-layout .checklist li {
+  margin: 0.55rem 0;
+}
+
+.slidev-layout .checklist li::before {
+  color: var(--lecture-accent);
+  content: "✓";
+  font-weight: 700;
+  margin-right: 0.55rem;
+}
+
+.slidev-layout .demo-frame {
+  border: 1px solid var(--lecture-border);
+  border-radius: 0.5rem;
+  height: 19rem;
+  margin-top: 1rem;
+  width: 100%;
+}

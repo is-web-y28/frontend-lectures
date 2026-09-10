@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="svg-title svg-description">
+  <title id="svg-title">Как браузер загружает веб-страницу</title>
+  <desc id="svg-description">В адресную строку вводят URL. Браузер получает IP-адрес у DNS, отправляет HTTP-запрос серверу, получает HTML и отображает страницу.</desc>
+  <style>
+    :root { color: #075985; }
+    text { fill: #172033; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .frame { fill: #f8fafc; stroke: #075985; stroke-width: 4; }
+    .surface { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+    .node { fill: #f8fafc; stroke: #075985; stroke-width: 4; }
+    .node-icon, .static-route { fill: none; stroke: #075985; stroke-linecap: round; stroke-linejoin: round; }
+    .node-icon { stroke-width: 4; }
+    .static-route { stroke: #cbd5e1; stroke-width: 4; }
+    .node-title { font-size: 24px; font-weight: 700; }
+    .node-subtitle { fill: #536176; font-size: 17px; }
+    .code { fill: #075985; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 16px; }
+    .address-text { fill: #075985; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; }
+    .route-label { fill: #075985; font-size: 16px; font-weight: 700; }
+    .active-route { fill: none; stroke: #075985; stroke-linecap: round; stroke-width: 6; }
+    .request { fill: #075985; }
+    .response { fill: #be123c; }
+    .packet { stroke: #ffffff; stroke-width: 3; }
+    .rendered-page { opacity: .28; }
+    .rendered-page text { font-size: 16px; }
+    .browser-accent { fill: #e0f2fe; }
+    .static-state { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .motion { display: none; }
+      .static-state { display: inline; }
+      .rendered-page { opacity: 1; }
+    }
+  </style>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#075985"/>
+    </marker>
+  </defs>
+
+  <!-- Browser and address bar -->
+  <g aria-label="Браузер">
+    <rect class="frame" x="55" y="84" width="500" height="400" rx="20"/>
+    <path class="node-icon" d="M55 148h500"/>
+    <circle cx="91" cy="116" r="8" fill="#075985"/>
+    <circle cx="117" cy="116" r="8" fill="#075985"/>
+    <circle cx="143" cy="116" r="8" fill="#075985"/>
+    <rect class="browser-accent" x="91" y="174" width="428" height="58" rx="10"/>
+    <text class="node-title" x="305" y="278" text-anchor="middle">Браузер</text>
+    <text class="node-subtitle" x="305" y="308" text-anchor="middle">адрес, запросы и отрисовка</text>
+
+    <g class="motion">
+      <g opacity="0"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.04;.91;1" dur="11s" repeatCount="indefinite"/><text class="address-text" x="116" y="210">https://</text></g>
+      <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.07;.08;.91;1" dur="11s" repeatCount="indefinite"/><text class="address-text" x="193" y="210">events.</text></g>
+      <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.10;.11;.91;1" dur="11s" repeatCount="indefinite"/><text class="address-text" x="258" y="210">example.org</text></g>
+      <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.13;.14;.91;1" dur="11s" repeatCount="indefinite"/><text class="address-text" x="365" y="210">/program</text></g>
+      <rect x="452" y="190" width="3" height="24" fill="#075985" opacity="0"><animate attributeName="opacity" values="0;1;0;1;0;1;0" keyTimes="0;.14;.16;.18;.20;.22;.24" dur=".9s" begin="1.54s" repeatCount="indefinite"/></rect>
+    </g>
+    <text class="static-state address-text" x="116" y="210">https://events.example.org/program</text>
+
+    <g class="rendered-page">
+      <animate class="motion" attributeName="opacity" values=".28;.28;1;1;.28" keyTimes="0;.62;.67;.91;1" dur="11s" repeatCount="indefinite"/>
+      <rect class="surface" x="91" y="336" width="428" height="112" rx="12"/>
+      <rect x="117" y="360" width="164" height="16" rx="8" fill="#075985"/>
+      <rect x="117" y="394" width="324" height="12" rx="6" fill="#cbd5e1"/>
+      <rect x="117" y="416" width="270" height="12" rx="6" fill="#cbd5e1"/>
+      <text x="117" y="324">Страница появится здесь</text>
+    </g>
+  </g>
+
+  <!-- Network nodes stay visible; active traffic shows the sequence. -->
+  <path class="static-route" d="M555 220H730M555 276H730M555 384H815M815 440H555"/>
+  <g aria-label="DNS-сервер">
+    <rect class="node" x="745" y="164" width="190" height="150" rx="18"/>
+    <path class="node-icon" d="M784 216h112M784 246h112M784 276h112"/>
+    <text class="node-title" x="840" y="294" text-anchor="middle">DNS</text>
+  </g>
+  <g aria-label="Веб-сервер">
+    <rect class="node" x="830" y="354" width="215" height="150" rx="18"/>
+    <path class="node-icon" d="M874 402h127M874 432h127M874 462h127"/>
+    <text class="node-title" x="937" y="486" text-anchor="middle">Сервер</text>
+  </g>
+
+  <!-- DNS request and answer -->
+  <g class="motion" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.17;.18;.25;.26;1" dur="11s" repeatCount="indefinite"/>
+    <path class="active-route" d="M555 220H730" marker-end="url(#arrow)"/>
+    <text class="route-label" x="642" y="202" text-anchor="middle">Найти IP</text>
+  </g>
+  <circle class="motion packet request" cx="565" cy="220" r="10" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.17;.18;.25;.26;1" dur="11s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;155 0;155 0;0 0" keyTimes="0;.18;.25;.26;1" dur="11s" repeatCount="indefinite"/>
+  </circle>
+  <g class="motion" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.27;.28;.35;.36;1" dur="11s" repeatCount="indefinite"/>
+    <path class="active-route" d="M730 276H555" marker-end="url(#arrow)"/>
+    <text class="route-label" x="642" y="304" text-anchor="middle">203.0.113.42</text>
+  </g>
+  <circle class="motion packet response" cx="720" cy="276" r="10" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.27;.28;.35;.36;1" dur="11s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;-155 0;-155 0;0 0" keyTimes="0;.28;.35;.36;1" dur="11s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- HTTP request and response -->
+  <g class="motion" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.38;.39;.47;.48;1" dur="11s" repeatCount="indefinite"/>
+    <path class="active-route" d="M555 384H815" marker-end="url(#arrow)"/>
+    <text class="route-label" x="685" y="366" text-anchor="middle">GET /program</text>
+  </g>
+  <circle class="motion packet request" cx="565" cy="384" r="10" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.38;.39;.47;.48;1" dur="11s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;240 0;240 0;0 0" keyTimes="0;.39;.47;.48;1" dur="11s" repeatCount="indefinite"/>
+  </circle>
+  <g class="motion" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.50;.51;.60;.61;1" dur="11s" repeatCount="indefinite"/>
+    <path class="active-route" d="M815 440H555" marker-end="url(#arrow)"/>
+    <text class="route-label" x="685" y="468" text-anchor="middle">200 OK + HTML</text>
+  </g>
+  <circle class="motion packet response" cx="805" cy="440" r="10" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.50;.51;.60;.61;1" dur="11s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 0;-240 0;-240 0;0 0" keyTimes="0;.51;.60;.61;1" dur="11s" repeatCount="indefinite"/>
+  </circle>
+
+  <g class="static-state">
+    <text class="route-label" x="670" y="556" text-anchor="middle">URL → DNS → HTTP → HTML → страница</text>
+  </g>
+  <text class="node-subtitle" x="600" y="584" text-anchor="middle">Цикл повторяется каждые 11 секунд</text>
+</svg>

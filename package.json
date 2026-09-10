@@ -1,0 +1,19 @@
+{
+  "name": "is-web-y28-frontend-lectures",
+  "private": true,
+  "scripts": {
+    "dev": "slidev slides/01-web-html.md --open",
+    "dev:01": "slidev slides/01-web-html.md --open",
+    "build": "npm run build:all",
+    "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
+    "build:all": "slidev build slides/*.md --out dist --without-notes"
+  },
+  "devDependencies": {
+    "@slidev/cli": "52.19.1",
+    "@slidev/theme-default": "^0.25.0",
+    "markdown-it": "^14.1.0"
+  },
+  "dependencies": {
+    "slidev-theme-tahta": "^0.13.3"
+  }
+}
