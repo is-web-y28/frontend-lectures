@@ -26,10 +26,14 @@
 ```sh
 npm install
 npm run dev:01
+npm run dev:02
 npm run build:01
+npm run build:02
 npm run build:all
 ```
 
 - `slides/01-web-html.md` — первая лекция;
+- `slides/02-css-basics.md` — вторая лекция; использует тему `slidev-theme-tahta`;
 - `slides/public/examples/01-web-html/` — исполняемый HTML-пример для первой лекции;
+- `slides/public/examples/02-css-basics/` — исполняемый HTML- и CSS-пример для второй лекции;
 - `npm run build:all` собирает все файлы `slides/*.md` в `slides/dist/` без заметок докладчика.

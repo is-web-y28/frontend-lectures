@@ -3,11 +3,13 @@ import { computed } from 'vue'
 import { useSlideContext } from '@slidev/client'
 import VClickGap from '@slidev/client/builtin/VClickGap.vue'
 import MarkdownText from './MarkdownText.vue'
+import HighlightedCode from './HighlightedCode.vue'
 
 type Step = {
   title: string
   label: string
   example: string
+  language: 'http' | 'text'
   description: string
 }
 
@@ -16,30 +18,35 @@ const steps: Step[] = [
     title: 'URL',
     label: '1. URL',
     example: 'https://events.example.org/program?day=2',
+    language: 'text',
     description: 'Браузер разбирает адрес: по какой схеме работать, к какому хосту обратиться и какой ресурс запросить.',
   },
   {
     title: 'DNS',
     label: '2. DNS',
     example: 'events.example.org → 203.0.113.42',
+    language: 'text',
     description: 'DNS сопоставляет доменное имя с `IP-адресом` сервера, к которому браузер сможет подключиться.',
   },
   {
     title: 'HTTP-запрос',
     label: '3. Запрос',
     example: 'GET /program?day=2 HTTP/1.1',
+    language: 'http',
     description: 'Браузер в роли клиента просит сервер передать ресурс по указанному пути.',
   },
   {
     title: 'HTTP-ответ',
     label: '4. Ответ',
     example: '200 OK\nContent-Type: text/html',
+    language: 'http',
     description: 'Сервер возвращает статус, заголовки и тело ответа. В этом случае телом служит `HTML`-документ.',
   },
   {
     title: 'Отрисовка',
     label: '5. DOM',
     example: 'HTML → DOM → страница',
+    language: 'text',
     description: 'Браузер разбирает `HTML`, запрашивает связанные ресурсы и строит страницу, которую видит пользователь.',
   },
 ]
@@ -71,7 +78,7 @@ const activeStep = computed(() => steps[activeIndex.value])
           <h3>{{ activeStep.title }}</h3>
           <p><MarkdownText inline :source="activeStep.description" /></p>
         </div>
-        <pre><code>{{ activeStep.example }}</code></pre>
+        <HighlightedCode :code="activeStep.example" :lang="activeStep.language" />
       </div>
     </Transition>
   </section>
