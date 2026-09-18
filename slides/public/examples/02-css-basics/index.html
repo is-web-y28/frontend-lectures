@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Meetup — CSS</title>
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+  <body>
+    <header class="site-header">
+      <p class="site-name">Frontend Meetup</p>
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a class="nav-link" href="#program">Программа</a>
+        <a class="nav-link" href="#speakers">Докладчики</a>
+        <a class="nav-link" href="#registration">Регистрация</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="event-card">
+        <header>
+          <h1>Frontend Meetup: интерфейсы, которые понятны</h1>
+          <p><time datetime="2026-09-17T19:00">17 сентября, 19:00</time> · Конференц-зал «Кронверк»</p>
+        </header>
+
+        <p>Вечерняя встреча для тех, кто создаёт интерфейсы и хочет <strong>обсуждать решения</strong>, а не только инструменты.</p>
+
+        <figure>
+          <img src="../01-web-html/meetup.svg" alt="Спикер выступает перед аудиторией на конференции">
+          <figcaption>Открывающий доклад Frontend Meetup.</figcaption>
+        </figure>
+
+        <section id="program" aria-labelledby="program-title">
+          <h2 id="program-title">Программа</h2>
+          <ol>
+            <li><time datetime="2026-09-17T19:00">19:00</time> — Как проектировать понятную структуру страницы.</li>
+            <li><time datetime="2026-09-17T19:35">19:35</time> — Нативные элементы и доступные интерфейсы.</li>
+            <li><time datetime="2026-09-17T20:15">20:15</time> — Вопросы и обсуждение.</li>
+          </ol>
+        </section>
+
+        <section id="speakers" aria-labelledby="speakers-title">
+          <h2 id="speakers-title">Докладчики</h2>
+          <ul>
+            <li>Анна Белова — frontend-разработчик.</li>
+            <li>Илья Воронов — дизайнер интерфейсов.</li>
+          </ul>
+        </section>
+
+        <section id="registration" aria-labelledby="registration-title">
+          <h2 id="registration-title">Регистрация</h2>
+          <form>
+            <p>
+              <label for="name">Имя</label>
+              <input id="name" name="name" autocomplete="name" required>
+            </p>
+            <p>
+              <label for="email">Электронная почта</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </p>
+            <button class="primary-action" type="submit">Зарегистрироваться</button>
+          </form>
+        </section>
+      </article>
+
+      <aside>
+        <h2>Пропускной режим</h2>
+        <p>Возьмите документ, удостоверяющий личность. Регистрация закрывается за час до начала встречи.</p>
+      </aside>
+    </main>
+
+    <footer>
+      <p>Frontend Meetup · <a href="mailto:meetup@example.org">meetup@example.org</a></p>
+    </footer>
+  </body>
+</html>
