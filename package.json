@@ -5,9 +5,11 @@
     "dev": "slidev slides/01-web-html.md --open",
     "dev:01": "slidev slides/01-web-html.md --open",
     "dev:02": "slidev slides/02-css-basics.md --open",
+    "dev:03": "slidev slides/03-css-layout.md --open",
     "build": "npm run build:all",
     "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
     "build:02": "slidev build slides/02-css-basics.md --out dist/02-css-basics --without-notes",
+    "build:03": "slidev build slides/03-css-layout.md --out dist/03-css-layout --without-notes",
     "build:all": "slidev build slides/*.md --out dist --without-notes"
   },
   "devDependencies": {

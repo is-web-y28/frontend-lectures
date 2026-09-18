@@ -1,0 +1,142 @@
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #1e293b;
+}
+
+/* Normal flow — sections follow document order */
+.site-header {
+  padding: 1.5rem;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.site-nav a {
+  color: #0369a1;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Grid for page layout */
+.page-layout {
+  display: grid;
+  grid-template-columns: 20rem 1fr 20rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.sidebar h2,
+.schedule h2 {
+  margin-top: 0;
+}
+
+/* Sticky sidebar */
+.sidebar {
+  position: sticky;
+  top: 1rem;
+}
+
+/* Flexbox for card list */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Grid cards within schedule */
+.schedule {
+  display: grid;
+  gap: 1rem;
+}
+
+.event-card {
+  position: relative;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.event-card h4 {
+  margin: 0;
+}
+
+/* Absolute positioning — badges */
+.card__badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.625rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.badge-free {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-new {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+/* Links and buttons */
+.sidebar-link {
+  display: inline-block;
+  background: #0284c7;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background: #0369a1;
+}
+
+/* Speaker list */
+.speaker-list {
+  list-style: none;
+  padding: 0;
+}
+
+.speaker-list li {
+  padding: 0.375rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.speaker-list li:last-child {
+  border-bottom: none;
+}
+
+/* Footer */
+.site-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748b;
+}
+
+/* Day heading with sticky positioning */
+.day-card h3 {
+  position: sticky;
+  top: 1rem;
+  background: white;
+  padding: 0.375rem 0;
+  margin-top: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}

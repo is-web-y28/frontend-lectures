@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Lecture 3 — CSS Layout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Frontend Meetup</h1>
+  <nav class="site-nav">
+    <a href="#program">Программа</a>
+    <a href="#speakers">Докладчики</a>
+    <a href="#register">Регистрация</a>
+  </nav>
+</header>
+
+<main class="page-layout">
+  <aside class="sidebar">
+    <h2>Важно</h2>
+    <p>Начало в 18:00. Вход свободный. Но нужна регистрация.</p>
+    <a href="#register" class="sidebar-link">Зарегистрироваться</a>
+  </aside>
+
+  <section class="schedule" id="program">
+    <h2>Программа</h2>
+
+    <article class="day-card" id="day-1">
+      <h3>День 1</h3>
+      <div class="card-list">
+        <article class="event-card">
+          <span class="card__badge badge-free">Бесплатно</span>
+          <h4>Welcome talk</h4>
+          <p>Открытие митапа и план на вечер.</p>
+        </article>
+        <article class="event-card">
+          <span class="card__badge badge-new">New</span>
+          <h4>CSS Layout Revisited</h4>
+          <p>Как браузер располагает элементы и почему flexbox не всегда нужен.</p>
+        </article>
+        <article class="event-card">
+          <h4>Grid in Production</h4>
+          <p>Реальный опыт использования grid в продакшене.</p>
+        </article>
+      </div>
+    </article>
+
+    <article class="day-card" id="day-2">
+      <h3>День 2</h3>
+      <div class="card-list">
+        <article class="event-card">
+          <h4>Performance</h4>
+          <p>Измерение и улучшение производительности фронтенда.</p>
+        </article>
+      </div>
+    </article>
+  </section>
+
+  <aside class="sidebar">
+    <h2>Докладчики</h2>
+    <ul class="speaker-list">
+      <li>Анна — CSS Layout Revisited</li>
+      <li>Борис — Grid in Production</li>
+      <li>Вера — Performance</li>
+    </ul>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2025 Frontend Meetup</p>
+</footer>
+
+</body>
+</html>
