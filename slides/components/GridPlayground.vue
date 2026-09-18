@@ -3,26 +3,24 @@ import { ref, computed } from 'vue'
 
 const columnCount = ref(3)
 const gap = ref(8)
-const addCard = ref(false)
+const isColumn = ref(false)
+const items = ref(Array.from({ length: 6 }, (_, i) => `Item ${i + 1}`))
 
-const columnsCSS = computed(() => {
-  const cols = Array(columnCount.value).fill('1fr').join(' ')
-  return cols
-})
-
-const items = ref(Array.from({ length: columnCount.value + 1 }, (_, i) => `Item ${i + 1}`))
-if (addCard.value) {
-  items.value.push(`Item ${columnCount.value + 2}`)
-}
+const columnsCSS = computed(() => Array(columnCount.value).fill('1fr').join(' '))
 
 function updateColumns(count) {
   columnCount.value = count
-  items.value = Array.from({ length: count + 1 }, (_, i) => `Item ${i + 1}`)
 }
 
-const isColumn = ref(false)
-</script>
+function addGridCard() {
+  items.value.push(`Item ${items.value.length + 1}`)
+}
 
+function removeGridCard() {
+  if (items.value.length > 1) items.value.pop()
+}
+
+</script>
 <template>
   <div class="grid-playground">
     <div class="controls">
@@ -49,6 +47,10 @@ const isColumn = ref(false)
         <button :class="{ active: isColumn }" @click="isColumn = !isColumn">
           grid-column: span 2
         </button>
+        <div class="button-row">
+          <button @click="addGridCard">+ карточка</button>
+          <button @click="removeGridCard" :disabled="items.length <= 1">− карточка</button>
+        </div>
       </div>
     </div>
 
@@ -57,11 +59,11 @@ const isColumn = ref(false)
         {{ item }}
       </div>
     </div>
-
     <code class="generated-code">
       display: grid;
       grid-template-columns: {{ columnsCSS }};
       gap: {{ gap }}px;
+      grid-column: {{ isColumn ? 'span 2' : 'auto' }};
     </code>
   </div>
 </template>

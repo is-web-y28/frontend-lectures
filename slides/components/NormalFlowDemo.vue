@@ -51,9 +51,22 @@ function addText() {
         <span :style="displayStyle" class="tag">CSS</span>
         продолжение текста
       </p>
-      <p v-if="extraText">
-        {{ extraText }}
-      </p>
+
+      <div class="flow-document">
+        <article class="flow-card">
+          <strong>Карточка 1</strong>
+          <p>Содержимое меняет высоту этой коробки.</p>
+          <p v-if="extraText">{{ extraText }}</p>
+        </article>
+        <article class="flow-card">
+          <strong>Карточка 2</strong>
+          <p>Следующий элемент остаётся после предыдущего.</p>
+        </article>
+        <article class="flow-card">
+          <strong>Карточка 3</strong>
+          <p>Нормальный поток учитывает размер содержимого.</p>
+        </article>
+      </div>
     </div>
 
     <button class="add-text-btn" @click="addText">
@@ -61,7 +74,8 @@ function addText() {
     </button>
 
     <p class="hint">
-      Блок занимает всю строку,_inline остаётся в строке текста,_inline-block — в строке но с размерами.
+      Блок занимает всю строку; <code>inline</code> остаётся в строке текста;
+      <code>inline-block</code> — в строке, но с размерами.
     </p>
   </div>
 </template>
@@ -101,6 +115,23 @@ function addText() {
   border-radius: 0.5rem;
   padding: 1.5rem;
   min-height: 4rem;
+}
+
+.flow-document {
+  display: block;
+}
+
+.flow-card {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  background: white;
+}
+
+.flow-card p {
+  margin: 0.35rem 0 0;
 }
 
 .tag {

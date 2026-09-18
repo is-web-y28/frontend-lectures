@@ -6,6 +6,9 @@ const justify = ref('flex-start')
 const align = ref('stretch')
 const wrap = ref('nowrap')
 const gap = ref('0')
+const basis = ref('16rem')
+const grow = ref(1)
+const shrink = ref(1)
 
 const items = [
   { label: 'Element A', text: 'Short' },
@@ -25,6 +28,10 @@ const flexStyle = computed(() => ({
   padding: '1rem',
   minHeight: direction.value === 'column' ? '200px' : '120px',
   maxWidth: '100%',
+}))
+
+const itemStyle = computed(() => ({
+  flex: `${grow.value} ${shrink.value} ${basis.value}`,
 }))
 
 const gapOptions = [0, 4, 8, 16]
@@ -87,6 +94,27 @@ function removeItem() {
       </div>
 
       <div class="control-group">
+        <label>flex-basis</label>
+        <select v-model="basis">
+          <option value="8rem">8rem</option>
+          <option value="16rem">16rem</option>
+          <option value="24rem">24rem</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>grow / shrink</label>
+        <select v-model.number="grow">
+          <option :value="0">0 / {{ shrink }}</option>
+          <option :value="1">1 / {{ shrink }}</option>
+          <option :value="2">2 / {{ shrink }}</option>
+        </select>
+        <button @click="shrink = shrink === 1 ? 0 : 1">
+          shrink: {{ shrink }}
+        </button>
+      </div>
+
+      <div class="control-group">
         <label>элементы</label>
         <button @click="addItem" :disabled="itemsPerRow >= 6">+1</button>
         <button @click="removeItem" :disabled="itemsPerRow <= 2">-1</button>
@@ -94,7 +122,7 @@ function removeItem() {
     </div>
 
     <div :style="flexStyle" class="playground-area">
-      <div v-for="i in itemsPerRow" :key="i" class="flex-item">
+      <div v-for="i in itemsPerRow" :key="i" class="flex-item" :style="itemStyle">
         {{ items[i - 1]?.text || `Element ${i}` }}
       </div>
     </div>
@@ -106,6 +134,7 @@ function removeItem() {
       align-items: {{ align }};
       flex-wrap: {{ wrap }};
       gap: {{ gap }}px;
+      flex: {{ grow }} {{ shrink }} {{ basis }};
     </code>
   </div>
 </template>
