@@ -10,11 +10,9 @@ const props = defineProps({
 
 const reduced = ref(props.initialReduced);
 const noticeVisible = ref(false);
-const noticeKey = ref(0);
 
 function showNotice() {
   noticeVisible.value = true;
-  noticeKey.value += 1;
 }
 </script>
 
@@ -58,9 +56,19 @@ function showNotice() {
         <a href="#registration">Зарегистрироваться</a>
       </article>
 
-      <p v-if="noticeVisible" :key="noticeKey" class="notice" role="status">
-        <strong>Сохранено.</strong> Регистрация доступна в личном кабинете.
-      </p>
+      <div v-if="noticeVisible" class="notice">
+        <p role="status">
+          <strong>Сохранено.</strong> Регистрация доступна в личном кабинете.
+        </p>
+        <button
+          type="button"
+          class="dismiss-notice"
+          aria-label="Скрыть уведомление"
+          @click="noticeVisible = false"
+        >
+          Скрыть
+        </button>
+      </div>
     </div>
 
     <p class="hint">
@@ -172,10 +180,25 @@ button.active,
 }
 
 .notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
   border-color: var(--good);
   background: color-mix(in oklab, var(--good) 11%, var(--surface-bg));
   animation: reveal 240ms ease-out both;
   font-size: 0.86rem;
+}
+
+.notice p {
+  flex: 1;
+  margin: 0;
+}
+
+.dismiss-notice {
+  flex: none;
+  border-color: var(--good);
+  background: color-mix(in oklab, var(--good) 11%, var(--surface-bg));
+  color: color-mix(in oklab, var(--good) 82%, var(--fg));
 }
 
 .hint {

@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     default: "narrow",
   },
+  compact: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const mode = ref(props.initialMode);
@@ -20,9 +24,14 @@ const modes = [
 <template>
   <section
     class="responsive-demo"
+    :class="{ compact: props.compact }"
     aria-label="Демонстрация доступного пространства"
   >
-    <div class="controls" aria-label="Режим доступного пространства">
+    <div
+      v-if="!props.compact"
+      class="controls"
+      aria-label="Режим доступного пространства"
+    >
       <span class="controls-label">Доступное пространство</span>
       <button
         v-for="item in modes"
@@ -55,30 +64,30 @@ const modes = [
               <strong>CSS Layout</strong>
               <span>18:00 · Основной зал</span>
             </article>
-            <article class="event-card">
-              <strong>Modern CSS</strong>
-              <span>19:00 · Основной зал</span>
-            </article>
           </div>
         </div>
 
         <aside class="registration">
           <p class="eyebrow">Регистрация</p>
-          <p>
-            Билет бесплатный. Оставьте контакты, чтобы получить напоминание.
-          </p>
+          <p>Билет бесплатный. Пришлём напоминание.</p>
           <div class="actions">
             <button type="button">Участвовать</button>
             <button type="button" class="secondary">Программа</button>
           </div>
         </aside>
       </section>
-    </div>
 
-    <p class="hint">
-      Ищем момент, когда текст, карточки или действия перестают иметь полезную
-      ширину.
-    </p>
+      <p class="observation">
+        <strong>Наблюдаем:</strong>
+        {{
+          mode === "narrow"
+            ? "смысл и действие читаются — breakpoint пока не нужен."
+            : mode === "wide"
+              ? "появилось место для двух самостоятельных зон."
+              : "текст вырос — снова нужна одна колонка."
+        }}
+      </p>
+    </div>
   </section>
 </template>
 
@@ -88,8 +97,9 @@ const modes = [
   flex: 1;
   min-height: 0;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.45rem;
   color: var(--fg);
+  font-size: 0.92rem;
 }
 
 .controls {
@@ -101,8 +111,7 @@ const modes = [
 
 .controls-label,
 .viewport-label,
-.eyebrow,
-.hint {
+.eyebrow {
   color: var(--fg-dim);
   font-size: 0.74rem;
 }
@@ -120,7 +129,7 @@ button {
   color: var(--fg);
   cursor: pointer;
   font: inherit;
-  padding: 0.3rem 0.55rem;
+  padding: 0.24rem 0.45rem;
 }
 
 .controls button.active,
@@ -132,15 +141,24 @@ button {
 
 .viewport {
   box-sizing: border-box;
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
   width: min(100%, 46rem);
   margin-inline: auto;
   border: 2px dashed color-mix(in oklab, var(--accent) 48%, var(--fg-dim));
   border-radius: 0.65rem;
   background: color-mix(in oklab, var(--surface-bg) 94%, var(--accent));
-  padding: 0.65rem;
+  padding: 0.5rem;
   transition:
     inline-size 180ms ease,
     font-size 180ms ease;
+}
+
+.compact .viewport {
+  width: 100%;
+  margin-inline: 0;
+  padding: 0.55rem;
 }
 
 .viewport.mode-narrow,
@@ -152,14 +170,37 @@ button {
   font-size: 1.14em;
 }
 
+.compact .viewport.mode-narrow,
+.compact .viewport.mode-zoom {
+  width: 100%;
+}
+
 .viewport-label,
 .eyebrow {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.3rem;
+}
+
+.observation {
+  margin: 0;
+  border-inline-start: 0.2rem solid var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, var(--surface-bg));
+  color: var(--fg-dim);
+  font-size: 0.74em;
+  line-height: 1.35;
+  padding: 0.35rem 0.45rem;
+}
+
+.observation strong {
+  color: var(--fg);
+}
+
+.compact .observation {
+  font-size: 0.74em;
 }
 
 .schedule {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.45rem;
 }
 
 .mode-wide .schedule {
@@ -176,7 +217,7 @@ button {
 
 .program,
 .registration {
-  padding: 0.65rem;
+  padding: 0.5rem;
 }
 
 .cards {
@@ -187,9 +228,9 @@ button {
 
 .event-card {
   display: grid;
-  gap: 0.22rem;
+  gap: 0.18rem;
   min-width: 0;
-  padding: 0.6rem;
+  padding: 0.45rem;
 }
 
 .event-card span,
@@ -202,8 +243,8 @@ button {
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  margin-top: 0.7rem;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
 }
 
 .mode-wide .actions {
@@ -216,8 +257,8 @@ button {
   color: var(--accent-deep, var(--accent));
 }
 
-.hint {
-  margin: 0;
+.compact .event-card {
+  padding: 0.45rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

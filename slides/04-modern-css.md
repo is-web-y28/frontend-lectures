@@ -9,14 +9,20 @@ subtitle: От раскладки к правилам, устойчивым к �
 lineNumbers: true
 transition: slide-left
 ---
+
 <!-- cover -->
+
 ---
+
 layout: statement
 kicker: Продолжение лекции 3
-title: Раскладка задаёт отношения. Современный CSS задаёт <em>условия</em>, когда они меняются.
+title: Раскладка задаёт отношения. Современный CSS задаёт <em>условия</em>, когда они меняются
 ---
+
 <!-- no slide body -->
+
 ---
+
 layout: agenda
 kicker: Результат лекции
 title: Четыре источника изменений интерфейса
@@ -28,18 +34,22 @@ items:
 - { topic: Предпочтение, desc: reduced motion сохраняет смысл без эффекта }
 
 ---
+
 <!-- no slide body -->
+
 ---
+
 layout: default
 kicker: Наблюдаемая проблема
 title: Одна страница, разные условия
 ---
+
 <ResponsiveLayoutDemo class="full-area-component" />
 <!-- Сначала выберите «Широко», затем «Узко» и «Крупный текст». Не называйте CSS до ответа аудитории: нужно сформулировать наблюдаемую проблему. -->
 ---
 layout: statement
 kicker: Breakpoint
-title: Не устройства ломаются — ломаются <em>компоненты</em>.
+title: Не устройства ломаются — ломаются <em>компоненты</em>
 ---
 <!-- no slide body -->
 ---
@@ -81,25 +91,28 @@ layout: default
 kicker: Задача до механизма
 title: Назовите проблему, не CSS-свойство
 ---
-<Quiz
-  question="Что именно перестало работать?"
-  :options="[
-    { label: 'Нужен breakpoint для планшета', correct: false },
-    { label: 'Две карточки стали слишком узкими для заголовка', correct: true },
-    { label: 'Нужно скопировать CSS из шаблона', correct: false }
-  ]"
-  explanation="Breakpoint появляется из наблюдаемой поломки компонента, а не из названия устройства."
-/>
-<!-- Дайте аудитории сформулировать проблему. Верный вариант открывается только после обсуждения. -->
+<div class="diagnosis-grid full-area-component">
+  <ResponsiveLayoutDemo initial-mode="narrow" compact />
+  <Quiz
+    question="Что именно перестало работать?"
+    :options="[
+      { label: 'Нужен breakpoint для планшета', correct: false },
+      { label: 'Карточка стала слишком узкой для заголовка', correct: true },
+      { label: 'Нужно скопировать CSS из шаблона', correct: false }
+    ]"
+    explanation="Breakpoint появляется из наблюдаемой поломки компонента, а не из названия устройства."
+  />
+</div>
+<!-- Сначала сравните узкую сцену слева с формулировками справа. Верный вариант открывается только после обсуждения. -->
 ---
 layout: reference
 kicker: До нового breakpoint
-title: Три проверки в порядке стоимости
+title: Четыре проверки в порядке стоимости
 items:
-  - { term: "1. Normal flow", desc: Одна колонка уже сохраняет читаемость? }
-  - { term: "2. Flexbox", desc: Группа может перенестись или изменить направление? }
-  - { term: "3. Grid", desc: Независимые карточки выберут число колонок через minmax() и auto-fit? }
-  - { term: "4. @media", desc: Нужно менять правило: зоны, направление, порядок или видимость декора? }
+  - { term: "1. Normal flow", desc: "Одна колонка уже сохраняет читаемость?" }
+  - { term: "2. Flexbox", desc: "Группа может перенестись или изменить направление?" }
+  - { term: "3. Grid", desc: "Независимые карточки выберут число колонок через minmax() и auto-fit?" }
+  - { term: "4. @media", desc: "Нужно менять правило: зоны, направление, порядок или видимость декора?" }
 ---
 <!-- no slide body -->
 ---
@@ -118,9 +131,9 @@ notes:
 }
 
 @media (min-width: 48rem) {
-  .schedule {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.schedule {
+grid-template-columns: repeat(2, 1fr);
+}
 }
 
 ````
@@ -147,7 +160,9 @@ notes:
   }
 }
 ````
+
 ---
+
 layout: define
 kicker: Единица условия
 term: Breakpoint
@@ -159,12 +174,16 @@ points:
 - "Число не переносится автоматически в другой компонент."
 
 ---
+
 <!-- no slide body -->
+
 ---
+
 layout: default
 kicker: Проверка в DevTools
 title: Меняется только представление, не документ
 ---
+
 <ResponsiveLayoutDemo initial-mode="wide" class="full-area-component" />
 <!-- Сузьте сцену до конфликтующих зон и верните широкий режим. Назовите неизменные вещи: Grid, HTML и документный порядок. -->
 ---
@@ -205,7 +224,7 @@ title: Когда группе действий стать строкой?
 layout: section
 index: "02"
 kicker: Адаптивность без media query
-title: Сначала выразить ограничение напрямую.
+title: Сначала выразить ограничение напрямую
 ---
 <!-- no slide body -->
 ---
@@ -274,8 +293,7 @@ layout: steps
 kicker: Выбор механизма
 title: "Адаптивная раскладка: сначала ограничение, затем условие"
 steps:
-  - { title: Оставить поток, desc: Одна колонка уже читаема }
-  - { title: Дать гибкость, desc: Медиа и коробки не выходят за контейнер }
+  - { title: Сохранить flow, desc: Одна колонка и ограниченное медиа уже читаемы }
   - { title: Выбрать раскладку, desc: Flexbox или Grid описывает отношения }
   - { title: Добавить @media, desc: Только при реальной смене композиции }
   - { title: Проверить, desc: Узкая, широкая ширина и увеличенный текст }
@@ -285,7 +303,7 @@ steps:
 layout: section
 index: "03"
 kicker: CSS custom properties
-title: Повторяющееся решение заслуживает имени.
+title: Повторяющееся решение заслуживает имени
 ---
 <!-- no slide body -->
 ---
@@ -354,11 +372,14 @@ notes:
   padding: var(--card-padding, 1rem);
 }
 ````
+
 ---
+
 layout: default
 kicker: Задача до решения
 title: Четыре числа — это четыре решения?
 ---
+
 <Quiz
   question="Что стоит вынести в custom property первым?"
   :options="[
@@ -369,14 +390,19 @@ title: Четыре числа — это четыре решения?
   explanation="Переменная полезна для повторяющегося решения с понятной ролью. Иначе имя только утяжеляет код."
 />
 <!-- После ответа попросите назвать предка для accent карточки и для общего отступа страницы. -->
+
 ---
+
 layout: section
 index: "04"
 kicker: Motion как обратная связь
-title: Визуально сдвинуть — не значит переложить.
+title: Визуально сдвинуть — не значит переложить
 ---
+
 <!-- no slide body -->
+
 ---
+
 layout: code-explain
 kicker: Document flow и transform
 title: Соседи реагируют только на изменение раскладки
@@ -387,6 +413,7 @@ notes:
 - "Для hover-ответа transform обычно точнее: сетка не дрожит."
 
 ---
+
 ```css
 /* соседние элементы реагируют */
 .event-card:hover {
@@ -398,7 +425,9 @@ notes:
   transform: translateY(-0.25rem);
 }
 ```
+
 ---
+
 layout: code-explain
 kicker: Transition
 title: Переход принадлежит базовому состоянию
@@ -409,6 +438,7 @@ notes:
 - "<code>:focus-within</code> даёт сопоставимый ответ, когда фокус на действии внутри карточки."
 
 ---
+
 ```css
 .event-card {
   transition:
@@ -422,11 +452,14 @@ notes:
   transform: translateY(-0.25rem);
 }
 ```
+
 ---
+
 layout: default
 kicker: Проверка состояния
 title: Мышь — не единственный путь к интерактивности
 ---
+
 <MotionPreferenceDemo class="full-area-component" />
 <!-- Наведите указатель на карточку, перейдите по Tab на ссылку и переключите «Меньше движения». Эффект меняется, но видимый фокус, текст и действие остаются. -->
 ---
@@ -460,7 +493,7 @@ notes:
 }
 
 .notice {
-  animation: reveal 240ms ease-out both;
+animation: reveal 240ms ease-out both;
 }
 
 ````
@@ -469,8 +502,8 @@ layout: panels
 kicker: Граница motion
 title: Анимация не должна быть единственным носителем смысла
 panels:
-  - { icon: "lucide:bell", title: Хорошо, items: ["Появление уже понятного уведомления", "Ответ на нажатие", "Изменение интерактивного состояния"] }
   - { icon: "lucide:triangle-alert", title: Плохо, items: ["Ошибка только через тряску", "Ожидание появления содержания", "Непрерывное декоративное движение"] }
+  - { icon: "lucide:bell", title: Хорошо, items: ["Появление уже понятного уведомления", "Ответ на нажатие", "Изменение интерактивного состояния"] }
 ---
 <!-- no slide body -->
 ---
@@ -493,23 +526,25 @@ notes:
   }
 }
 ````
+
 ---
+
 layout: default
 kicker: Проверка reduced motion
 title: Понятен ли интерфейс без декоративного движения?
 ---
+
 <MotionPreferenceDemo initial-reduced class="full-area-component" />
 <!-- Включите обычный и reduced-motion режимы. Проверьте: интерактивность карточки, читаемость сообщения и сохранение видимого фокуса. -->
 ---
-layout: feature
+layout: panels
 kicker: Один компонент, четыре условия
 title: Frontend Meetup остаётся понятным при изменениях
-columns: 2
-features:
-  - { icon: "lucide:columns-3", title: Доступная ширина, desc: Grid с minmax() выбирает колонки карточек }
-  - { icon: "lucide:git-branch", title: Смена композиции, desc: Media query перестраивает связанные зоны }
-  - { icon: "lucide:variable", title: Повторяющиеся роли, desc: Custom properties хранят общие отступы и accent }
-  - { icon: "lucide:accessibility", title: Предпочтение пользователя, desc: reduced motion оставляет функцию без эффекта }
+panels:
+  - { icon: "lucide:columns-3", title: Доступная ширина, items: ["Grid с minmax() выбирает колонки карточек"] }
+  - { icon: "lucide:git-branch", title: Смена композиции, items: ["Media query перестраивает связанные зоны"] }
+  - { icon: "lucide:variable", title: Повторяющиеся роли, items: ["Custom properties хранят общие отступы и accent"] }
+  - { icon: "lucide:accessibility", title: Предпочтение пользователя, items: ["Reduced motion оставляет функцию без эффекта"] }
 ---
 <!-- no slide body -->
 ---
@@ -518,10 +553,9 @@ kicker: Диагностика
 title: От наблюдаемого условия к CSS-решению
 steps:
   - { title: Что изменилось?, desc: Ширина, текст, предпочтение или состояние? }
-  - { title: Можно без @media?, desc: Ограничение, Flexbox или intrinsic Grid уже достаточно? }
-  - { title: Что меняет breakpoint?, desc: Только реальное отношение в композиции }
-  - { title: Что повторяется?, desc: Дайте имени значение с ролью }
-  - { title: Что останется без motion?, desc: Смысл, фокус, контраст и порядок }
+  - { title: Можно без query?, desc: Normal flow, Flexbox или intrinsic Grid уже достаточно? }
+  - { title: Чьё условие?, desc: Страница выбирает @media, карточка — @container }
+  - { title: Что сохраняем?, desc: Смысл, фокус, контраст и повторяющиеся роли }
 ---
 <!-- no slide body -->
 ---
@@ -536,17 +570,23 @@ panels:
 ---
 <!-- После каждого изменения студент называет условие, которое оно обрабатывает. Не выдавайте «правильный CSS» до объяснения причины. -->
 ---
+layout: statement
+kicker: Итог основной части
+title: Вопросы?
+---
+<!-- no slide body -->
+---
 layout: section
 index: "Доп."
 kicker: Факультатив · 60 минут
-title: Продвинутые условия — не новые фреймворки.
+title: Продвинутые условия — не новые фреймворки
 subtitle: Container queries, системная схема, mobile viewport и @property.
 ---
 <!-- no slide body -->
 ---
 layout: statement
 kicker: Container queries
-title: Viewport не всегда знает ширину <em>компонента</em>.
+title: Viewport не всегда знает ширину <em>компонента</em>
 ---
 <!-- no slide body -->
 ---
@@ -564,8 +604,8 @@ notes:
 }
 
 .event-card__body {
-  display: grid;
-  gap: 1rem;
+display: grid;
+gap: 1rem;
 }
 
 ````
@@ -586,7 +626,9 @@ notes:
   }
 }
 ````
+
 ---
+
 layout: reference
 kicker: Владелец условия
 title: Media query и container query не конкурируют
@@ -598,12 +640,16 @@ items:
 - { term: "Не query", desc: Ограничение или normal flow уже сохраняют читаемость }
 
 ---
+
 <!-- no slide body -->
+
 ---
+
 layout: default
 kicker: "Практика: одна карточка в двух контейнерах"
 title: Одинаковый viewport, разная ширина компонента
 ---
+
 <ContainerQueryDemo class="full-area-component" />
 <!-- Покажите, что широкая карточка меняет только внутреннюю композицию. Узкая остаётся читаемой без отдельного viewport breakpoint. -->
 ---
@@ -709,13 +755,14 @@ notes:
 }
 
 .event-card:hover {
-  --card-accent: #16827a;
+--card-accent: #16827a;
 }
 
 ```
 ---
 layout: end
-title: Условие выбираем по владельцу решения.
+title: Условие выбираем по владельцу решения
 subtitle: Страница → @media · компонент → @container · системная роль → prefers-color-scheme · улучшение motion → @property
 ---
 <!-- no slide body -->
+```

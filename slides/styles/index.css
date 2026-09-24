@@ -12,6 +12,22 @@
   width: 100%;
 }
 
+.l-body > .fit > .fit-inner > :is(.full-area-component, .quiz) {
+  margin-block-start: var(--sp-4);
+}
+
+.diagnosis-grid {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.85fr) minmax(19rem, 1.15fr);
+  gap: var(--sp-6);
+  align-items: start;
+  min-width: 0;
+}
+
+.diagnosis-grid > * {
+  min-width: 0;
+}
+
 .slidev-layout code:not(pre code) {
   background: color-mix(in oklab, var(--accent) 10%, transparent);
   border-radius: 0.2rem;
