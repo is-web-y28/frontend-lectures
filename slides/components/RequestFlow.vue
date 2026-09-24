@@ -86,8 +86,8 @@ const activeStep = computed(() => steps[activeIndex.value])
 
 <style scoped>
 .request-flow {
-  background: var(--lecture-surface);
-  border: 1px solid var(--lecture-border);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-radius: 0.5rem;
   margin-top: 1.5rem;
   padding: 1rem 1.2rem;
@@ -103,19 +103,19 @@ const activeStep = computed(() => steps[activeIndex.value])
 }
 
 .step {
-  background: var(--lecture-surface-raised);
-  border: 1px solid var(--lecture-border-strong);
+  background: color-mix(in oklab, var(--fg) 4%, var(--surface-bg));
+  border: var(--surface-border);
   border-radius: 0.35rem;
-  color: var(--lecture-muted);
+  color: var(--fg-dim);
   padding: 0.55rem 0.45rem;
   text-align: center;
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .step.active {
-  background: var(--lecture-accent-soft);
-  border: 2px solid var(--lecture-accent);
-  color: var(--lecture-accent);
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-bg));
+  border: 2px solid var(--accent);
+  color: var(--accent);
   font-weight: 700;
   transform: translateY(-0.08rem);
 }
@@ -129,7 +129,7 @@ const activeStep = computed(() => steps[activeIndex.value])
 }
 
 .eyebrow {
-  color: var(--lecture-accent);
+  color: var(--accent);
   font-size: 0.8rem;
   font-weight: 700;
   margin: 0;

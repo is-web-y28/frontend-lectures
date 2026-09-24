@@ -50,8 +50,8 @@ const questionText = computed(() => markdownToPlainText(props.question))
 
 <style scoped>
 .quiz {
-  background: var(--lecture-surface);
-  border: 1px solid var(--lecture-border);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-radius: 0.5rem;
   padding: 1rem 1.2rem;
 }
@@ -69,10 +69,10 @@ const questionText = computed(() => markdownToPlainText(props.question))
 
 .option {
   align-items: center;
-  background: var(--lecture-surface-raised);
-  border: 1px solid var(--lecture-border-strong);
+  background: color-mix(in oklab, var(--fg) 4%, var(--surface-bg));
+  border: var(--surface-border);
   border-radius: 0.35rem;
-  color: var(--lecture-ink);
+  color: var(--fg);
   display: flex;
   font: inherit;
   justify-content: space-between;
@@ -83,10 +83,10 @@ const questionText = computed(() => markdownToPlainText(props.question))
 }
 
 .option.correct {
-  background: var(--lecture-success-surface);
-  border-color: var(--lecture-success);
+  background: color-mix(in oklab, var(--good) 15%, var(--surface-bg));
+  border-color: var(--good);
   border-width: 2px;
-  box-shadow: 0 0.2rem 0.6rem color-mix(in srgb, var(--lecture-success) 18%, transparent);
+  box-shadow: 0 0.2rem 0.6rem color-mix(in srgb, var(--good) 18%, transparent);
   transform: translateY(-0.08rem);
 }
 

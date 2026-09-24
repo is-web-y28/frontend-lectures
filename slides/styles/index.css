@@ -13,8 +13,8 @@
 }
 
 .slidev-layout code:not(pre code) {
-  background: color-mix(in oklab, var(--accent, var(--lecture-accent)) 10%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
   border-radius: 0.2rem;
-  color: var(--accent, var(--lecture-accent));
+  color: var(--accent);
   padding: 0.05em 0.24em;
 }

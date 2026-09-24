@@ -96,8 +96,8 @@ const selected = computed(() => entries.find(entry => entry.id === selectedId.va
 }
 
 .column {
-  background: var(--lecture-surface);
-  border: 1px solid var(--lecture-border);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-radius: 0.5rem;
   padding: 0.8rem;
 }
@@ -112,7 +112,7 @@ const selected = computed(() => entries.find(entry => entry.id === selectedId.va
   background: transparent;
   border: 0;
   border-radius: 0.25rem;
-  color: var(--lecture-ink);
+  color: var(--fg);
   cursor: pointer;
   display: block;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -127,7 +127,7 @@ const selected = computed(() => entries.find(entry => entry.id === selectedId.va
 .static-line,
 .dom-root,
 .dom-doctype {
-  color: var(--lecture-muted);
+  color: var(--fg-dim);
   cursor: default;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.7rem;
@@ -144,19 +144,19 @@ const selected = computed(() => entries.find(entry => entry.id === selectedId.va
 .code-line:focus-visible,
 .dom-node:hover,
 .dom-node:focus-visible {
-  outline: 3px solid var(--lecture-focus);
+  outline: 3px solid var(--accent);
   outline-offset: 1px;
 }
 
 .selected {
-  background: var(--lecture-accent-soft);
-  color: var(--lecture-accent);
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-bg));
+  color: var(--accent);
   font-weight: 700;
 }
 
 .description {
-  background: var(--lecture-surface);
-  border: 1px solid var(--lecture-border);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-radius: 0.5rem;
   font-size: 0.85rem;
   grid-column: 1 / -1;

@@ -72,4 +72,5 @@ watchEffect(async () => {
 .highlighted-code :deep(.code-line-loser) {
   text-decoration: line-through 2px #b91c1c;
 }
+
 </style>

@@ -8,7 +8,7 @@
 <style scoped>
 .course-footer {
   bottom: 0.9rem;
-  color: var(--lecture-muted);
+  color: var(--fg-dim);
   font-size: 0.65rem;
   letter-spacing: 0.04em;
   position: absolute;

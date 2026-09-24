@@ -88,8 +88,8 @@ const activeSegment = computed(() => segments[activeIndex.value])
 
 <style scoped>
 .url-breakdown {
-  background: var(--lecture-surface);
-  border: 1px solid var(--lecture-border);
+  background: var(--surface-bg);
+  border: var(--surface-border);
   border-radius: 0.5rem;
   margin-top: 1.25rem;
   padding: 1rem 1.2rem;
@@ -107,15 +107,15 @@ const activeSegment = computed(() => segments[activeIndex.value])
 .segment {
   border-bottom: 0.18rem solid transparent;
   border-radius: 0.2rem;
-  color: var(--lecture-muted);
+  color: var(--fg-dim);
   padding: 0.05rem 0.12rem;
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .segment.active {
-  background: var(--lecture-accent-soft);
-  border-color: var(--lecture-accent);
-  color: var(--lecture-accent);
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-bg));
+  border-color: var(--accent);
+  color: var(--accent);
   font-weight: 700;
   transform: translateY(-0.08rem);
 }
@@ -130,24 +130,24 @@ const activeSegment = computed(() => segments[activeIndex.value])
 }
 
 .legend li {
-  color: var(--lecture-muted);
+  color: var(--fg-dim);
   font-size: 0.82rem;
   transition: color 180ms ease, font-weight 180ms ease;
 }
 
 .legend li.active {
-  color: var(--lecture-accent);
+  color: var(--accent);
   font-weight: 700;
 }
 
 .details {
-  border-top: 1px solid var(--lecture-border);
+  border-top: var(--surface-border);
   margin-top: 1rem;
   padding-top: 0.85rem;
 }
 
 .eyebrow {
-  color: var(--lecture-accent);
+  color: var(--accent);
   font-size: 0.8rem;
   font-weight: 700;
   margin: 0;
@@ -165,7 +165,7 @@ h3 {
 }
 
 .effect {
-  background: var(--lecture-surface-raised);
+  background: color-mix(in oklab, var(--fg) 4%, var(--surface-bg));
   border-radius: 0.3rem;
   margin-top: 0.7rem !important;
   padding: 0.55rem 0.7rem;

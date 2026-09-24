@@ -20,9 +20,9 @@ const content = computed(() => props.inline
 
 <style scoped>
 .markdown-text :deep(code) {
-  background: var(--lecture-accent-soft);
+  background: color-mix(in oklab, var(--accent) 12%, var(--surface-bg));
   border-radius: 0.2rem;
-  color: var(--lecture-accent);
+  color: var(--accent-deep);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   padding: 0.05em 0.22em;
 }
