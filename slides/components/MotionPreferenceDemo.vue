@@ -20,7 +20,7 @@ function showNotice() {
   <section
     class="motion-demo"
     :class="{ reduced }"
-    aria-label="Демонстрация обычного и reduced-motion режимов"
+    aria-label="Демонстрация режимов с обычным и уменьшенным движением"
   >
     <div class="controls">
       <span class="controls-label">Предпочтение движения</span>
@@ -48,7 +48,7 @@ function showNotice() {
     <div class="preview">
       <article class="event-card">
         <p class="eyebrow">Интерактивная карточка</p>
-        <h3>Modern CSS: условия интерфейса</h3>
+        <h3>Современный CSS: условия интерфейса</h3>
         <p>
           Наведите указатель или перейдите по Tab к ссылке: состояние остаётся
           заметным в обоих режимах.
@@ -74,7 +74,7 @@ function showNotice() {
     <p class="hint">
       {{
         reduced
-          ? "Декоративные transition и animation выключены; содержание и фокус сохранены."
+          ? "Декоративные плавные переходы и анимации выключены; содержание и фокус сохранены."
           : "Эффект дополняет уже понятное интерактивное состояние."
       }}
     </p>

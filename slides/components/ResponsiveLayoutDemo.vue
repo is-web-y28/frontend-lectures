@@ -61,7 +61,7 @@ const modes = [
           <p class="eyebrow">Программа</p>
           <div class="cards">
             <article class="event-card">
-              <strong>CSS Layout</strong>
+              <strong>Раскладка CSS</strong>
               <span>18:00 · Основной зал</span>
             </article>
           </div>
@@ -81,7 +81,7 @@ const modes = [
         <strong>Наблюдаем:</strong>
         {{
           mode === "narrow"
-            ? "смысл и действие читаются — breakpoint пока не нужен."
+            ? "смысл и действие читаются — точка смены раскладки пока не нужна."
             : mode === "wide"
               ? "появилось место для двух самостоятельных зон."
               : "текст вырос — снова нужна одна колонка."
