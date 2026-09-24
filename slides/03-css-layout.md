@@ -19,8 +19,8 @@ layout: default
 kicker: Результат прошлой лекции
 title: Браузер уже располагает элементы
 ---
-<NormalFlowDemo class="full-area-component" />
-<!-- Покажите страницу без Flexbox, Grid и positioning. Добавьте текст в первую карточку — остальные сдвинутся. -->
+<NormalFlowDemo variant="flow" class="full-area-component" />
+<!-- Добавьте текст в первую карточку: в normal flow вторая карточка сдвигается вниз. -->
 ---
 layout: agenda
 kicker: Модель лекции
@@ -74,13 +74,9 @@ a {
 
 <!-- Несколько ссылок могут стоять на одной строке. -->
 ---
-layout: code-explain
+layout: two-cols
 kicker: Строчно-блочная коробка
 title: inline-block остаётся в строке, но получает размеры
-notes:
-  - "Остаётся частью строки"
-  - "Получает прямоугольную коробку"
-  - "Работают размеры и вертикальные отступы"
 ---
 ```css
 .tag {
@@ -88,6 +84,12 @@ notes:
   padding: 0.25rem 0.5rem;
 }
 ```
+
+::right::
+
+- Остаётся частью строки
+- Получает прямоугольную коробку
+- Работают размеры и вертикальные отступы
 
 <!-- Тег остаётся в строке, но получает самостоятельные размеры. -->
 ---
@@ -109,7 +111,7 @@ right:
     - "Только непосредственные потомки"
 ---
 ---
-layout: default
+layout: two-cols
 kicker: Проверка display
 title: Что изменится при смене display?
 ---
@@ -119,8 +121,10 @@ title: Что изменится при смене display?
 - `inline` — участие в строке без блочной геометрии;
 - `inline-block` — участие в строке с собственной коробкой.
 
-<NormalFlowDemo class="full-area-component" />
-<!-- Сначала выслушать прогнозы, затем переключить режимы и добавить текст. -->
+::right::
+
+<NormalFlowDemo variant="display" class="full-area-component" />
+<!-- После объяснения block, inline и inline-block предложите переключить варианты. -->
 ---
 layout: code-explain
 kicker: Размеры
@@ -133,7 +137,6 @@ notes:
 ```css
 .card {
   width: auto;
-  min-height: 0;
 }
 ```
 
@@ -147,29 +150,30 @@ items:
   - { term: rem, desc: Зависит от размера шрифта корневого элемента }
   - { term: em, desc: Зависит от размера шрифта текущего элемента }
   - { term: %, desc: Доля соответствующего размера содержащего блока }
-  - { term: vw, vh, desc: Зависит от видимой области браузера }
+  - { term: "vw, vh", desc: Зависит от видимой области браузера }
   - { term: fr, desc: Доля свободного пространства в Grid }
 ---
 ---
 layout: vs
 kicker: rem против em
-title: rem и em отвечают на разные вопросы
-label: Стабильность vs адаптивность компонента
+title: <code>rem</code> и <code>em</code> отвечают на разные вопросы
+label: Стабильность vs адаптивность
 left:
-  title: rem — стабильно
+  title: <code>rem</code> — стабильно
   items:
-    - "Зависит от html { font-size }"
+    - "Зависит от <br><code>html { font-size }</code>"
     - "Одно значение для всей страницы"
     - "Идеально для пространства"
   label: ".card { padding: 1.5rem; }"
 right:
-  title: em — адаптивно
+  title: <code>em</code> — адаптивно
   items:
     - "Зависит от шрифта текущего элемента"
     - "Компонент масштабируется с текстом"
     - "Риск вложенного масштабирования"
   label: ".badge { padding: 0.25em; }"
 ---
+
 ---
 layout: code-explain
 kicker: Проблемы вложенности
@@ -194,24 +198,27 @@ notes:
   - "% — доля соответствующего размера содержащего блока."
   - "vh — доля высоты viewport."
 ---
+
 ```css
 .card {
-  width: 50%;            /* половина содержащего блока */
+  /* половина содержащего блока */
+  width: 50%;
 }
 
 .hero {
-  min-height: 50vh;      /* половина viewport */
+  /* половина viewport */
+  min-height: 50vh;
 }
 ```
 
-<!-- Для обычных отступов vh не нужен. Он полезен для полноэкранных секций. -->
+<!--
+Для обычных отступов vh не нужен. Он полезен для полноэкранных секций.
+-->
+
 ---
-layout: code-explain
+layout: two-cols
 kicker: fr в Grid
 title: Свободное пространство после gap и фиксированных размеров
-notes:
-  - "fr — доля свободного пространства grid-контейнера."
-  - "Сначала вычитаются gap и фиксированные размеры."
 ---
 ```css
 .grid {
@@ -219,6 +226,11 @@ notes:
   grid-template-columns: 1fr 2fr;
 }
 ```
+
+::right::
+
+- `fr` — доля свободного пространства grid-контейнера
+- Сначала вычитаются `gap` и фиксированные размеры
 
 <!-- fr — единица Grid, а не Flexbox. Вторая колонка получает в два раза больше оставшегося пространства. -->
 ---
@@ -232,16 +244,19 @@ panels:
   - { title: "Половина контейнера", body: "50%" }
   - { title: "Доля grid-колонки", body: "1fr" }
 ---
+
+d
+
 ---
-layout: agenda
+layout: reference
 kicker: Выход из потока
-title: Позиционирование: поток и система координат
+title: "Позиционирование: поток и система координат"
 items:
-  - { topic: static, desc: "Остаётся в потоке" }
-  - { topic: relative, desc: "Сохраняет место в потоке" }
-  - { topic: absolute, desc: "Выходит из потока" }
-  - { topic: fixed, desc: "Обычно привязан к viewport" }
-  - { topic: sticky, desc: "Начинается в потоке, прилипает при прокрутке" }
+  - { term: static, desc: "Остаётся в потоке; смещения игнорируются" }
+  - { term: relative, desc: "Сохраняет место и задаёт containing block" }
+  - { term: absolute, desc: "Выходит из потока; привязан к containing block" }
+  - { term: fixed, desc: "Обычно привязан к viewport" }
+  - { term: sticky, desc: "Остаётся в потоке до порога прокрутки" }
 ---
 ---
 layout: code-explain
@@ -280,7 +295,7 @@ kicker: Absolute positioning
 title: Выходит из потока, привязывается к предку
 ---
 <PositioningPlayground class="full-area-component" />
-<!-- Переключить static, relative и absolute, затем отключить containing block. -->
+<!-- Выберите sticky и нажмите «Прокрутить +96px». Затем сравните absolute и fixed при той же прокрутке: absolute уезжает, fixed остаётся. Переключите z-index с 1 на 10 и покажите, как Child перекрывает Layer. -->
 ---
 layout: code-explain
 kicker: fixed
@@ -316,13 +331,9 @@ notes:
 
 <!-- Sticky сохраняет место в раскладке и удерживается до границы своего контейнера. -->
 ---
-layout: code-explain
+layout: two-cols
 kicker: z-index
 title: Порядок перекрытия, а не раскладка
-notes:
-  - "z-index управляет порядком наложения внутри stacking context."
-  - "Он работает и для flex/grid items, не только для positioned elements."
-  - "Он не перемещает элементы в потоке."
 ---
 ```css
 .badge {
@@ -330,6 +341,12 @@ notes:
   z-index: 10;
 }
 ```
+
+::right::
+
+- `z-index` управляет порядком наложения внутри stacking context
+- Работает и для flex/grid items, не только для positioned elements
+- Не перемещает элементы в потоке
 
 <!-- z-index меняет слой наложения. Он не исправляет неправильный layout. -->
 ---
@@ -364,15 +381,22 @@ notes:
   - ".actions__link и .actions__button становятся flex items"
   - "Вложенный span внутри ссылки не становится flex item"
 ---
+
 ```css
 .actions {
   display: flex;
 }
 
-/* Только .actions__link и .actions__button — flex items */
+/* 
+  Только .actions__link 
+  и .actions__button — flex items
+ */
 ```
 
-<!-- Flexbox не управляет вложенным содержимым. -->
+<!--
+Flexbox не управляет вложенным содержимым.
+-->
+
 ---
 layout: code-explain
 kicker: Оси
@@ -396,12 +420,9 @@ notes:
 
 <!-- При column основная ось становится вертикальной, а поперечной — горизонтальной. -->
 ---
-layout: code-explain
+layout: two-cols
 kicker: Выравнивание
 title: justify по основной оси, align — поперёк
-notes:
-  - "justify-content — свободное пространство"
-  - "align-items — выравнивание по поперечной оси"
 ---
 ```css
 .actions {
@@ -411,14 +432,19 @@ notes:
 }
 ```
 
+::right::
+
+- `justify-content` распределяет свободное пространство
+- `align-items` выравнивает по поперечной оси
+
 <!-- Поменять flex-direction и показать: при column justify-content работает вертикально, а align-items — горизонтально. -->
 ---
 layout: code-explain
 kicker: Промежутки и перенос
 title: gap задаёт расстояние между элементами, wrap — разрешает перенос
 notes:
-  - "gap не добавляет отступ по краям"
-  - "flex-wrap: wrap разрешает перенос на новую строку"
+  - "`gap` не добавляет отступ по краям"
+  - "`flex-wrap: wrap` разрешает перенос на новую строку"
 ---
 ```css
 .tags {
@@ -506,17 +532,19 @@ notes:
 
 <!-- Вторая колонка получает в два раза больше оставшегося пространства, но не обязательно в два раза больше всей ширины. -->
 ---
-layout: code-explain
+layout: two-cols
 kicker: Повторение треков
 title: repeat() сокращает описание одинаковых колонок
-notes:
-  - "repeat(3, 1fr) = 1fr 1fr 1fr"
 ---
 ```css
 .cards {
   grid-template-columns: repeat(3, 1fr);
 }
 ```
+
+::right::
+
+- `repeat(3, 1fr)` = `1fr 1fr 1fr`
 
 <!-- Три одинаковые колонки — одна строка вместо трёх. -->
 ---
@@ -586,45 +614,40 @@ layout: default
 kicker: Сборка страницы
 title: Frontend Meetup использует несколько моделей
 ---
-<iframe
-  src="/examples/03-css-layout/"
-  title="Интерактивный пример Frontend Meetup"
-  style="width: 100%; height: 400px; border: 2px solid #cbd5e1; border-radius: 0.75rem;"
-></iframe>
-
-<div class="text-sm mt-2">
-  Поток — секции · Flexbox — навигация · Grid — программа ·
-  positioning — badge и sticky-заголовки
-</div>
-<!-- Попросить найти каждый механизм в примере и связать его с задачей. -->
+<MeetupLayoutDemo class="full-area-component" />
+<!-- Найдите поток, Flexbox, Grid, absolute badge и sticky-заголовок в одном примере. -->
 ---
-layout: code-explain
+layout: vs
 kicker: Алгоритм выбора
 title: От простого к нужному
-notes:
-  - "Начинаем с потока"
-  - "Flexbox — одна ось"
-  - "Grid — две оси"
-  - "Positioning — наложение или привязка"
+label: Задача → механизм
+left:
+  title: Сначала оставить поток
+  items:
+    - "Элементы следуют содержанию → normal flow"
+    - "Проблема только в размере → проверить единицы"
+right:
+  title: Добавить нужную модель
+  items:
+    - "Одна ось или группа → Flexbox"
+    - "Строки и колонки вместе → Grid"
+    - "Наложение или привязка → positioning"
 ---
-```text
-Элементы следуют содержанию?         → Оставить поток
-Нужна одна ось или группа элементов?  → Flexbox
-Нужны строки и колонки вместе?        → Grid
-Элемент накладывается или привязан?   → Positioning
-Проблема только в размере?            → Проверить единицы, не менять модель
-```
-
-<!-- Сначала поток. Flexbox — когда нужна ось и выравнивание. Grid — двумерные соотношения. Positioning — наложение. -->
 ---
 layout: panels
 kicker: Проверка
-title: Восемь вопросов при отладке раскладки
+title: Первые четыре вопроса при отладке раскладки
 panels:
   - { title: "1", body: "Какой layout mode у родителя?" }
   - { title: "2", body: "Элемент — прямой ребёнок контейнера?" }
   - { title: "3", body: "Элемент в нормальном потоке?" }
   - { title: "4", body: "От чего считаются координаты?" }
+---
+---
+layout: panels
+kicker: Проверка
+title: Ещё четыре вопроса при отладке раскладки
+panels:
   - { title: "5", body: "Какая сейчас основная ось?" }
   - { title: "6", body: "Откуда берётся свободное пространство?" }
   - { title: "7", body: "Порядок визуальный и DOM совпадают?" }
@@ -635,9 +658,7 @@ layout: statement
 kicker: Главный вывод лекции
 title: Хорошая раскладка описывает отношения, а не координаты
 ---
-<!-- Завершающая мысль: раскладка продолжает работать при изменении текста, количества карточек и доступного пространства. -->
 ---
 layout: end
-class: text-center
 title: Вопросы?
 ---

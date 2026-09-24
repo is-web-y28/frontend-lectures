@@ -13,7 +13,7 @@ function updateColumns(count) {
 }
 
 function addGridCard() {
-  items.value.push(`Item ${items.value.length + 1}`)
+  if (items.value.length < 8) items.value.push(`Item ${items.value.length + 1}`)
 }
 
 function removeGridCard() {
@@ -48,7 +48,7 @@ function removeGridCard() {
           grid-column: span 2
         </button>
         <div class="button-row">
-          <button @click="addGridCard">+ карточка</button>
+          <button @click="addGridCard" :disabled="items.length >= 8">+ карточка</button>
           <button @click="removeGridCard" :disabled="items.length <= 1">− карточка</button>
         </div>
       </div>
@@ -71,25 +71,28 @@ function removeGridCard() {
 <style scoped>
 .grid-playground {
   display: flex;
+  min-height: 0;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.55rem;
+  overflow: hidden;
 }
 
 .controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
 }
 
 .control-group {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
 }
 
 .control-group label {
-  font-size: 0.75rem;
   color: #64748b;
+  font-size: 0.7rem;
 }
 
 .button-row {
@@ -98,13 +101,14 @@ function removeGridCard() {
 }
 
 .control-group button {
-  padding: 0.25rem 0.5rem;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0.25rem 0.4rem;
   border: 1px solid #cbd5e1;
   border-radius: 0.25rem;
-  background: #f8fafc;
-  color: #475569;
-  font-size: 0.8125rem;
-  cursor: pointer;
+  background: white;
+  color: #0f172a;
+  font-size: 0.75rem;
 }
 
 .control-group button.active {
@@ -114,31 +118,41 @@ function removeGridCard() {
 }
 
 .playground-area {
-  min-height: 160px;
+  min-height: 84px;
+  max-height: 148px;
+  overflow: auto;
 }
 
 .grid-item {
+  min-width: 0;
+  overflow-wrap: anywhere;
   background: #dcfce7;
   border: 1px solid #86efac;
   color: #14532d;
-  padding: 1rem;
+  padding: 0.55rem;
   border-radius: 0.375rem;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 .grid-item.span2 {
+  grid-column: span 2;
   background: #fde68a;
   border-color: #fbbf24;
   color: #78350f;
 }
 
 .generated-code {
+  max-height: 78px;
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   background: #1e293b;
   color: #e2e8f0;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 0.375rem;
-  font-size: 0.8125rem;
-  line-height: 1.6;
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
 </style>
