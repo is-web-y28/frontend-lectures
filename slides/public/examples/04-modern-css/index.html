@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Лекция 4 — Современный CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-brand" href="#main-content">Frontend Meetup</a>
+      <nav aria-label="Основная навигация">
+        <a href="#program">Программа</a>
+        <a href="#registration">Регистрация</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Лекция 4 · Web-разработка: Frontend</p>
+        <h1 id="page-title">Современный CSS: условия интерфейса</h1>
+        <p>
+          Собираем страницу, которая сохраняет смысл при изменении ширины,
+          текста, состояния и пользовательских предпочтений.
+        </p>
+      </section>
+
+      <section class="page-layout" aria-label="Программа и регистрация">
+        <section class="program" id="program" aria-labelledby="program-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">18 ноября · онлайн и в аудитории</p>
+              <h2 id="program-title">Программа</h2>
+            </div>
+            <a href="#registration">Получить билет</a>
+          </div>
+
+          <div class="cards">
+            <article class="event-card">
+              <img
+                src="../01-web-html/meetup.svg"
+                alt="Спикер выступает перед аудиторией на конференции"
+              />
+              <div class="event-card__body">
+                <span class="badge">Основной зал</span>
+                <h3>От раскладки к условиям</h3>
+                <p>
+                  Почему адаптивность начинается с наблюдаемой проблемы, а не с
+                  каталога устройств.
+                </p>
+                <a href="#registration">Записаться на доклад</a>
+              </div>
+            </article>
+
+            <article class="event-card workshop-card">
+              <img
+                src="../01-web-html/meetup.svg"
+                alt="Спикер выступает перед аудиторией на конференции"
+              />
+              <div class="event-card__body">
+                <span class="badge">Практикум</span>
+                <h3>Grid без лишних условий</h3>
+                <p>
+                  Подбираем число колонок через auto-fit и minmax(), пока они
+                  сохраняют полезную ширину.
+                </p>
+                <a href="#registration">Записаться на практикум</a>
+              </div>
+            </article>
+
+            <article class="event-card">
+              <img
+                src="../01-web-html/meetup.svg"
+                alt="Спикер выступает перед аудиторией на конференции"
+              />
+              <div class="event-card__body">
+                <span class="badge">Демо</span>
+                <h3>Motion без обязательного движения</h3>
+                <p>
+                  Добавляем обратную связь для hover и клавиатурного фокуса, не
+                  скрывая смысл эффекта.
+                </p>
+                <a href="#registration">Записаться на демо</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <aside
+          class="registration"
+          id="registration"
+          aria-labelledby="registration-title"
+        >
+          <p class="eyebrow">Бесплатный билет</p>
+          <h2 id="registration-title">Регистрация</h2>
+          <p>Получите ссылку на трансляцию и материалы после лекции.</p>
+          <div class="actions">
+            <a
+              class="button"
+              href="mailto:meetup@example.test?subject=Регистрация%20на%20Frontend%20Meetup"
+              >Участвовать</a
+            >
+            <a class="button secondary" href="#program">Посмотреть программу</a>
+          </div>
+          <p class="notice" role="status">
+            <strong>Напоминание:</strong> расписание сохранено в вашем часовом
+            поясе.
+          </p>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <p>Frontend Meetup · пример для лекции 4</p>
+    </footer>
+  </body>
+</html>

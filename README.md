@@ -26,16 +26,20 @@ npm install
 npm run dev:01
 npm run dev:02
 npm run dev:03
+npm run dev:04
 npm run build:01
 npm run build:02
 npm run build:03
+npm run build:04
 npm run build:all
 ```
 
 - `slides/01-web-html.md` — первая лекция;
 - `slides/02-css-basics.md` — вторая лекция; использует тему `slidev-theme-tahta`;
 - `slides/03-css-layout.md` — третья лекция; использует тему `slidev-theme-tahta`;
+- `slides/04-modern-css.md` — четвёртая лекция; основной 90-минутный материал и факультативный модуль используют тему `slidev-theme-tahta`;
 - `slides/public/examples/01-web-html/` — исполняемый HTML-пример для первой лекции;
 - `slides/public/examples/02-css-basics/` — исполняемый HTML- и CSS-пример для второй лекции;
 - `slides/public/examples/03-css-layout/` — исполняемый HTML- и CSS-пример для третьей лекции;
+- `slides/public/examples/04-modern-css/` — исполняемый HTML- и CSS-пример для четвёртой лекции;
 - `npm run build:all` собирает все файлы `slides/*.md` в `slides/dist/` без заметок докладчика.
