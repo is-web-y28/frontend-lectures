@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   initialMode: {
@@ -13,6 +13,76 @@ const props = defineProps({
 });
 
 const mode = ref(props.initialMode);
+const viewport = ref(null);
+const manualWidth = ref(null);
+const resizing = ref(false);
+const dragStartX = ref(0);
+const dragStartWidth = ref(0);
+const dragScale = ref(1);
+
+const MIN_WIDTH = 200;
+const MAX_WIDTH = 736;
+const LAYOUT_BREAKPOINT = 480;
+
+const isWide = computed(() =>
+  manualWidth.value === null
+    ? mode.value === "wide"
+    : manualWidth.value >= LAYOUT_BREAKPOINT,
+);
+
+const viewportWidth = computed(
+  () =>
+    manualWidth.value ??
+    (mode.value === "wide" ? MAX_WIDTH : 25 * 16),
+);
+
+function selectMode(nextMode) {
+  mode.value = nextMode;
+  manualWidth.value = null;
+}
+
+function clampWidth(width) {
+  const availableWidth = viewport.value?.parentElement?.clientWidth ?? MAX_WIDTH;
+  return Math.round(Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, availableWidth, width)));
+}
+
+function startResize(event) {
+  const bounds = viewport.value?.getBoundingClientRect();
+  const computedWidth = viewport.value
+    ? Number.parseFloat(getComputedStyle(viewport.value).width)
+    : Number.NaN;
+  const width = Number.isFinite(computedWidth)
+    ? computedWidth
+    : viewportWidth.value;
+
+  dragStartX.value = event.clientX;
+  dragStartWidth.value = width;
+  dragScale.value = bounds?.width ? width / bounds.width : 1;
+  manualWidth.value = clampWidth(width);
+  resizing.value = true;
+  event.currentTarget.setPointerCapture(event.pointerId);
+}
+
+function resize(event) {
+  if (!resizing.value) return;
+  manualWidth.value = clampWidth(
+    dragStartWidth.value +
+      (event.clientX - dragStartX.value) * dragScale.value,
+  );
+}
+
+function endResize(event) {
+  if (!resizing.value) return;
+  resizing.value = false;
+  if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  }
+}
+
+function adjustWidth(delta) {
+  manualWidth.value = clampWidth(viewportWidth.value + delta);
+}
+
 
 const modes = [
   { id: "narrow", label: "Узко" },
@@ -37,22 +107,35 @@ const modes = [
         v-for="item in modes"
         :key="item.id"
         type="button"
-        :class="{ active: mode === item.id }"
-        :aria-pressed="mode === item.id"
-        @click="mode = item.id"
+        :class="{ active: manualWidth === null && mode === item.id }"
+        :aria-pressed="manualWidth === null && mode === item.id"
+        @click="selectMode(item.id)"
       >
         {{ item.label }}
       </button>
+      <span class="resize-hint">Тяните маркер справа</span>
     </div>
 
-    <div class="viewport" :class="`mode-${mode}`">
+    <div
+      ref="viewport"
+      class="viewport"
+      :class="{
+        'mode-narrow': !isWide && mode !== 'zoom',
+        'mode-wide': isWide,
+        'mode-zoom': mode === 'zoom',
+        'is-resizing': resizing,
+      }"
+      :style="manualWidth === null ? undefined : { width: `${manualWidth}px` }"
+    >
       <p class="viewport-label">
         {{
-          mode === "narrow"
-            ? "узкая область"
-            : mode === "wide"
-              ? "достаточная ширина"
-              : "узко + увеличенный текст"
+          manualWidth === null
+            ? mode === "narrow"
+              ? "узкая область"
+              : mode === "wide"
+                ? "достаточная ширина"
+                : "узко + увеличенный текст"
+            : `ручная ширина: ${manualWidth}px`
         }}
       </p>
 
@@ -80,13 +163,38 @@ const modes = [
       <p class="observation">
         <strong>Наблюдаем:</strong>
         {{
-          mode === "narrow"
-            ? "смысл и действие читаются — точка смены раскладки пока не нужна."
-            : mode === "wide"
+          manualWidth !== null
+            ? isWide
               ? "появилось место для двух самостоятельных зон."
-              : "текст вырос — снова нужна одна колонка."
+              : "смысл и действие читаются — точка смены раскладки пока не нужна."
+            : mode === "narrow"
+              ? "смысл и действие читаются — точка смены раскладки пока не нужна."
+              : mode === "wide"
+                ? "появилось место для двух самостоятельных зон."
+                : "текст вырос — снова нужна одна колонка."
         }}
       </p>
+      <div
+        v-if="!props.compact"
+        class="resize-handle"
+        role="slider"
+        tabindex="0"
+        aria-label="Ширина области просмотра"
+        title="Перетащите, чтобы изменить ширину."
+        aria-orientation="horizontal"
+        :aria-valuemin="MIN_WIDTH"
+        :aria-valuemax="MAX_WIDTH"
+        :aria-valuenow="viewportWidth"
+        :aria-valuetext="`${viewportWidth} пикселей`"
+        @pointerdown="startResize"
+        @pointermove="resize"
+        @pointerup="endResize"
+        @pointercancel="endResize"
+        @keydown.left.prevent="adjustWidth(-16)"
+        @keydown.right.prevent="adjustWidth(16)"
+        @keydown.home.prevent="manualWidth = MIN_WIDTH"
+        @keydown.end.prevent="manualWidth = clampWidth(MAX_WIDTH)"
+      ></div>
     </div>
   </section>
 </template>
@@ -111,7 +219,8 @@ const modes = [
 
 .controls-label,
 .viewport-label,
-.eyebrow {
+.eyebrow,
+.resize-hint {
   color: var(--fg-dim);
   font-size: 0.74rem;
 }
@@ -139,11 +248,17 @@ button {
   color: var(--on-accent, white);
 }
 
+.resize-hint {
+  margin-inline-start: auto;
+}
+
 .viewport {
+  position: relative;
   box-sizing: border-box;
   display: grid;
   gap: 0.45rem;
   min-width: 0;
+  max-width: 100%;
   width: min(100%, 46rem);
   margin-inline: auto;
   border: 2px dashed color-mix(in oklab, var(--accent) 48%, var(--fg-dim));
@@ -173,6 +288,42 @@ button {
 .compact .viewport.mode-narrow,
 .compact .viewport.mode-zoom {
   width: 100%;
+}
+
+.viewport.is-resizing {
+  transition: font-size 180ms ease;
+}
+
+.resize-handle {
+  position: absolute;
+  inset-block: 0.5rem;
+  inset-inline-end: -0.7rem;
+  width: 0.7rem;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.resize-handle::before {
+  content: "";
+  position: absolute;
+  inset-block: 35%;
+  inset-inline-start: 50%;
+  width: 0.2rem;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0.5;
+  transform: translateX(-50%);
+  transition: opacity 120ms ease;
+}
+
+.resize-handle:hover::before,
+.resize-handle:focus-visible::before {
+  opacity: 1;
+}
+
+.resize-handle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0.15rem;
 }
 
 .viewport-label,

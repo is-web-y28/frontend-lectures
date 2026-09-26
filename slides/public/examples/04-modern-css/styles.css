@@ -30,7 +30,6 @@
 }
 
 body {
-  min-width: 20rem;
   margin: 0;
   background: var(--surface);
   color: var(--text);
@@ -168,13 +167,15 @@ footer p {
 .event-card img {
   display: block;
   width: 100%;
-  height: auto;
   max-width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   background: color-mix(in srgb, var(--card-accent) 18%, var(--surface-raised));
 }
 
 .event-card__body {
   display: grid;
+  min-inline-size: 0;
   align-content: start;
   gap: var(--space-2);
   padding: var(--space-4);
@@ -182,6 +183,10 @@ footer p {
 
 .event-card__body p {
   color: var(--muted);
+}
+
+.event-card__body a {
+  overflow-wrap: anywhere;
 }
 
 .badge {
