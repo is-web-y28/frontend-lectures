@@ -1,5 +1,6 @@
 ---
 theme: slidev-theme-tahta
+colorSchema: light
 title: Современный CSS
 themeConfig:
   variant: soft

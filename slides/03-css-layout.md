@@ -1,5 +1,6 @@
 ---
 theme: slidev-theme-tahta
+colorSchema: light
 title: Вёрстка средствами CSS
 themeConfig:
   variant: soft

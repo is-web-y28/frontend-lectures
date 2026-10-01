@@ -1,12 +1,15 @@
 ---
 theme: slidev-theme-tahta
+colorSchema: light
 themeConfig:
-  variant: notebook
+  variant: soft
   lang: ru
 layout: cover
 kicker: "Лекция 5 · Web-разработка: Frontend"
 subtitle: Как превратить каскад, имена и инструменты в систему, которую команда сможет менять через полгода
 title: Организация CSS
+lineNumbers: true
+transition: slide-left
 ---
 ---
 layout: statement

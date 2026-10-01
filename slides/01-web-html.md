@@ -1,5 +1,6 @@
 ---
 theme: "slidev-theme-tahta"
+colorSchema: light
 title: "Web и HTML"
 themeConfig:
   variant: "soft"
