@@ -2,28 +2,38 @@
   "name": "is-web-y28-frontend-lectures",
   "private": true,
   "scripts": {
-    "dev:01": "slidev slides/01-web-html.md --open",
-    "dev:02": "slidev slides/02-css-basics.md --open",
-    "dev:03": "slidev slides/03-css-layout.md --open",
-    "dev:04": "slidev slides/04-modern-css.md --open",
-    "build": "npm run build:all",
-    "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
-    "build:02": "slidev build slides/02-css-basics.md --out dist/02-css-basics --without-notes",
-    "build:03": "slidev build slides/03-css-layout.md --out dist/03-css-layout --without-notes",
-    "build:04": "slidev build slides/04-modern-css.md --out dist/04-modern-css --without-notes",
-    "build:all": "slidev build slides/*.md --out dist --without-notes",
-    "build:pages": "node scripts/build-pages.mjs"
+ "dev:01": "slidev slides/01-web-html.md --open",
+ "dev:02": "slidev slides/02-css-basics.md --open",
+ "dev:03": "slidev slides/03-css-layout.md --open",
+ "dev:04": "slidev slides/04-modern-css.md --open",
+ "dev:05": "slidev slides/05-css-organization.md --open",
+ "build": "npm run build:all",
+ "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
+ "build:02": "slidev build slides/02-css-basics.md --out dist/02-css-basics --without-notes",
+ "build:03": "slidev build slides/03-css-layout.md --out dist/03-css-layout --without-notes",
+ "build:04": "slidev build slides/04-modern-css.md --out dist/04-modern-css --without-notes",
+ "build:05": "slidev build slides/05-css-organization.md --out dist/05-css-organization --without-notes",
+ "build:all": "slidev build slides/*.md --out dist --without-notes",
+ "build:pages": "node scripts/build-pages.mjs",
+ "build:css-examples": "node scripts/build-css-examples.mjs"
   },
   "devDependencies": {
-    "@slidev/cli": "52.19.1",
+    "@slidev/cli": "^52.20.1",
     "@slidev/theme-default": "^0.25.0",
-    "markdown-it": "^14.1.0"
+    "@tailwindcss/postcss": "^4.3.3",
+    "autoprefixer": "^10.6.1",
+    "bootstrap": "^5.3.8",
+    "markdown-it": "^14.1.0",
+    "playwright-chromium": "^1.63.0",
+    "postcss": "^8.5.28",
+    "sass": "^1.105.1",
+    "tailwindcss": "^4.3.3"
   },
   "dependencies": {
     "@shikijs/core": "4.4.3",
     "@shikijs/engine-javascript": "4.4.3",
     "@shikijs/langs": "4.4.3",
     "@shikijs/themes": "4.4.3",
-    "slidev-theme-tahta": "^0.13.3"
+    "slidev-theme-tahta": "^0.10.7"
   }
 }

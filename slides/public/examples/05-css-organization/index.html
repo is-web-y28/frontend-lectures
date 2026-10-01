@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Лекция 5 — Организация CSS</title>
+    <link rel="stylesheet" href="generated/tailwind.css" />
+    <link rel="stylesheet" href="generated/bootstrap.css" />
+    <link rel="stylesheet" href="generated/meetup.css" />
+    <link rel="stylesheet" href="generated/prefixes.css" />
+  </head>
+  <body>
+    <main class="css-tools-page">
+      <header class="css-tools-page__header">
+        <p class="css-tools-page__eyebrow">Лекция 5 · организация CSS</p>
+        <h1>Один «Frontend Meetup» — три способа собрать карточку</h1>
+        <p>
+          Во всех вариантах один и тот же смысл: название события, дата,
+          описание и действие «Зарегистрироваться».
+        </p>
+      </header>
+
+      <section class="css-tools-grid" aria-label="Сравнение CSS-инструментов">
+        <article class="meetup-card" aria-labelledby="bem-title">
+          <p class="meetup-card__label">Sass → собственный BEM</p>
+          <h2 class="meetup-card__title" id="bem-title">Frontend Meetup</h2>
+          <p class="meetup-card__meta">18 октября · 19:00 · онлайн</p>
+          <p class="meetup-card__description">
+            Разбираем каскад, слои и правила, которые помогают команде не
+            потерять CSS через полгода.
+          </p>
+          <a class="meetup-card__action" href="#registration">Зарегистрироваться</a>
+        </article>
+
+        <article class="card shadow-sm" aria-labelledby="bootstrap-title">
+          <div class="card-body p-4">
+            <p class="text-uppercase fw-semibold small text-primary mb-2">Bootstrap</p>
+            <h2 class="card-title h3" id="bootstrap-title">Frontend Meetup</h2>
+            <p class="card-subtitle text-body-secondary mb-3">18 октября · 19:00 · онлайн</p>
+            <p class="card-text">
+              Разбираем каскад, слои и правила, которые помогают команде не
+              потерять CSS через полгода.
+            </p>
+            <a class="btn btn-primary" href="#registration">Зарегистрироваться</a>
+          </div>
+        </article>
+
+        <article
+          class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+          aria-labelledby="tailwind-title"
+        >
+          <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-teal-700">Tailwind</p>
+          <h2 class="m-0 text-2xl font-bold text-slate-950" id="tailwind-title">Frontend Meetup</h2>
+          <p class="mb-4 mt-2 text-sm text-slate-600">18 октября · 19:00 · онлайн</p>
+          <p class="mb-5 leading-6 text-slate-700">
+            Разбираем каскад, слои и правила, которые помогают команде не
+            потерять CSS через полгода.
+          </p>
+          <a
+            class="inline-flex rounded-lg bg-teal-700 px-4 py-2 font-semibold text-white no-underline transition hover:bg-teal-800 focus:outline-2 focus:outline-offset-2 focus:outline-teal-700"
+            href="#registration"
+          >Зарегистрироваться</a>
+        </article>
+      </section>
+
+      <section class="css-tools-page__resources" aria-labelledby="sources-title">
+        <h2 id="sources-title">Что собралось локально</h2>
+        <p>
+          Запустите <code>npm run build:css-examples</code>, затем откройте этот
+          файл в браузере. Все стили ниже берутся из локальных файлов — CDN нет.
+        </p>
+        <ul>
+          <li><a href="source/meetup.scss">Исходник Sass: BEM, <code>@use</code> и mixin</a> → <a href="generated/meetup.css">скомпилированный CSS</a></li>
+          <li><a href="source/prefixes.css">Вход PostCSS: <code>display: flex</code> и <code>user-select</code></a> → <a href="generated/prefixes.css">CSS с префиксами Safari 8</a></li>
+          <li><a href="source/tailwind.css">Вход Tailwind v4</a> → <a href="generated/tailwind.css">сгенерированные utility-классы</a></li>
+          <li><a href="generated/bootstrap.css">Скопированный локально Bootstrap CSS</a></li>
+        </ul>
+      </section>
+
+      <section class="prefix-lab" aria-labelledby="prefix-title">
+        <div>
+          <h2 id="prefix-title">Проверка Autoprefixer</h2>
+          <p>Этот ряд — flex-контейнер, а текст нельзя выделить мышью.</p>
+        </div>
+        <span class="prefix-lab__token">display: flex</span>
+        <span class="prefix-lab__token">user-select: none</span>
+      </section>
+
+      <section class="css-tools-page__registration" id="registration" aria-labelledby="registration-title">
+        <h2 id="registration-title">Регистрация</h2>
+        <p>Кнопка в каждой карточке ведёт сюда: семантика и действие остаются одинаковыми.</p>
+        <a class="css-tools-page__registration-link" href="#sources-title">Вернуться к исходникам</a>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+@use "tokens" as t;
+
+@mixin focus-ring {
+  outline: 3px solid color-mix(in srgb, t.$accent 45%, white);
+  outline-offset: 3px;
+}
+
+@mixin panel {
+  border: 1px solid t.$border;
+  border-radius: 1rem;
+  background: t.$surface;
+  box-shadow: 0 0.75rem 2rem rgb(16 42 67 / 8%);
+}

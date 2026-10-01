@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Tailwind v4 сканирует классы учебной страницы явно. */
+@source "../index.html";

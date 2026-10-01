@@ -1,0 +1,7 @@
+/* Цель: Safari 8, чтобы Autoprefixer показал -webkit- варианты. */
+.prefix-lab {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-user-select: none;
+          user-select: none;
+}
