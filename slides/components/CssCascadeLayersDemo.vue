@@ -108,12 +108,14 @@ const iframeDocument = computed(() => `<!doctype html>
     <div class="demo-grid">
       <div class="preview-panel">
         <p class="panel-label">Результат, который рисует браузер</p>
-        <iframe
-          :key="selectedCase"
-          :srcdoc="iframeDocument"
-          sandbox
-          :title="`Каскад CSS: победитель — ${activeCase.winner}`"
-        />
+        <div class="iframe-stage">
+          <iframe
+            :key="selectedCase"
+            :srcdoc="iframeDocument"
+            sandbox
+            :title="`Каскад CSS: победитель — ${activeCase.winner}`"
+          />
+        </div>
         <p class="winner" aria-live="polite">
           Победитель: <strong :style="{ color: activeCase.color }">{{ activeCase.winner }}</strong>
         </p>
@@ -214,11 +216,18 @@ button:focus-visible {
   gap: 0.45rem;
 }
 
+.iframe-stage {
+  flex: 1;
+  min-height: 9.5rem;
+  position: relative;
+}
+
 iframe {
   border: 1px solid var(--border);
   border-radius: 0.42rem;
-  flex: 1;
-  min-height: 9.5rem;
+  height: 100%;
+  inset: 0;
+  position: absolute;
   width: 100%;
 }
 

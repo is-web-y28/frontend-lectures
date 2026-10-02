@@ -1,4 +1,5 @@
 @import "tailwindcss";
 
-/* Tailwind v4 сканирует классы учебной страницы явно. */
+/* Tailwind v4 сканирует учебную страницу и живую демонстрацию явно. */
 @source "../index.html";
+@source "../../../../components/CssFrameworkCompareDemo.vue";

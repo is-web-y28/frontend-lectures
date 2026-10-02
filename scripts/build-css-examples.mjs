@@ -25,6 +25,12 @@ const sassResult = sass.compile(resolve(sourceDirectory, 'meetup.scss'), {
 })
 await writeGenerated('meetup.css', sassResult.css)
 
+const tokenDemoResult = sass.compile(resolve(sourceDirectory, 'token-demo.scss'), {
+  style: 'expanded',
+  loadPaths: [sourceDirectory],
+})
+await writeGenerated('token-demo.css', tokenDemoResult.css)
+
 const prefixesSource = resolve(sourceDirectory, 'prefixes.css')
 const prefixesResult = await postcss([
   autoprefixer({

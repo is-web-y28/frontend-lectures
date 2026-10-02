@@ -109,8 +109,12 @@ body {
   font-weight: 800;
   text-decoration: none;
 }
-.meetup-card__action:hover {
+.meetup-card__action:hover:not(:disabled) {
   background: #115e59;
+}
+.meetup-card__action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .prefix-lab {

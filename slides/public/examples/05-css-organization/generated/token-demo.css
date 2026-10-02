@@ -1,0 +1,17 @@
+:root {
+  --color-teal-700: #0f766e;
+  --color-purple-700: #7e22ce;
+  --color-action: var(--color-teal-700);
+}
+
+:root[data-theme=purple] {
+  --color-action: var(--color-purple-700);
+}
+
+.sass-card {
+  border-color: #0f766e;
+}
+
+.theme-card {
+  border-color: var(--event-card-border-color, var(--color-action));
+}

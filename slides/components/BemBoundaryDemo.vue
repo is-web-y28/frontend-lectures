@@ -23,7 +23,7 @@ ${selector} {
   return featured.value
     ? `${rule}
 
-.event-card--featured {
+.event-card_featured {
   box-shadow: inset 0.28rem 0 var(--accent);
 }`
     : rule
@@ -70,7 +70,7 @@ const observation = computed(() => {
           :aria-pressed="featured"
           @click="featured = !featured"
         >
-          {{ featured ? 'Убрать --featured' : 'Включить --featured' }}
+          {{ featured ? 'Убрать _featured' : 'Включить _featured' }}
         </button>
         <button type="button" @click="movedToAside = !movedToAside">
           {{ movedToAside ? 'Вернуть «Каскад» в main' : 'Переместить «Каскад» в aside' }}
@@ -86,7 +86,7 @@ const observation = computed(() => {
       >
         <main class="agenda" aria-label="Основная программа">
           <p class="container-label">main .agenda</p>
-          <article v-if="!movedToAside" class="card event-card" :class="{ 'event-card--featured': featured }">
+          <article v-if="!movedToAside" class="card event-card" :class="{ 'event-card_featured': featured }">
             <span class="card-kind">event-card</span>
             <strong>Каскад без сюрпризов</strong>
             <small>18:00 · зал «Код»</small>
@@ -100,7 +100,7 @@ const observation = computed(() => {
 
         <aside class="sidebar" aria-label="Боковая колонка">
           <p class="container-label">aside .sidebar</p>
-          <article v-if="movedToAside" class="card event-card" :class="{ 'event-card--featured': featured }">
+          <article v-if="movedToAside" class="card event-card" :class="{ 'event-card_featured': featured }">
             <span class="card-kind">event-card</span>
             <strong>Каскад без сюрпризов</strong>
             <small>18:00 · зал «Код»</small>
@@ -116,9 +116,9 @@ const observation = computed(() => {
 
       <div class="code-panel">
         <p class="panel-label">{{ useBroadSelector ? 'Правило зависит от контекста' : 'Правило описывает блок' }}</p>
-        <HighlightedCode :code="strategyCode" lang="css" />
+        <HighlightedCode :code="strategyCode" lang="css" class="strategy-code" />
         <p class="observation" aria-live="polite">{{ observation }}</p>
-        <p class="legend"><code>.event-card--featured</code> — модификатор одного блока, а не новый контекст.</p>
+        <p class="legend"><code>.event-card_featured</code> — модификатор одного блока, а не новый контекст.</p>
       </div>
     </div>
   </section>
@@ -265,7 +265,7 @@ button:focus-visible {
   border-color: var(--accent);
 }
 
-.event-card--featured {
+.event-card_featured {
   box-shadow: inset 0.28rem 0 var(--accent);
 }
 
@@ -287,6 +287,12 @@ button:focus-visible {
   overflow: hidden;
 }
 
+.strategy-code {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
 .code-panel :deep(pre) {
   font-size: 0.59rem;
   line-height: 1.35;
@@ -300,6 +306,7 @@ button:focus-visible {
   font-size: 0.68rem;
   line-height: 1.35;
   margin: 0;
+  flex-shrink: 0;
 }
 
 .observation {

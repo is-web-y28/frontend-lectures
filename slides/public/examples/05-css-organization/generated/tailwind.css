@@ -14,6 +14,7 @@
     --color-teal-500: oklch(70.4% 0.14 182.503);
     --color-teal-700: oklch(51.1% 0.096 186.391);
     --color-teal-800: oklch(43.7% 0.078 188.216);
+    --color-purple-700: oklch(49.6% 0.265 301.924);
     --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-slate-600: oklch(44.6% 0.043 257.281);
     --color-slate-700: oklch(37.2% 0.044 257.287);
@@ -275,6 +276,9 @@
   .grid {
     display: grid;
   }
+  .hidden {
+    display: none;
+  }
   .inline {
     display: inline;
   }
@@ -467,6 +471,17 @@
   }
   .focus\:outline-teal-700:focus {
     outline-color: var(--color-teal-700);
+  }
+  @media (hover: hover) {
+    .enabled\:hover\:bg-teal-800:enabled:hover {
+      background-color: var(--color-teal-800);
+    }
+  }
+  .disabled\:cursor-not-allowed:disabled {
+    cursor: not-allowed;
+  }
+  .disabled\:opacity-50:disabled {
+    opacity: 50%;
   }
   @media (prefers-color-scheme: dark) {
     .dark\:text-teal-400 {

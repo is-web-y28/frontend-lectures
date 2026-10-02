@@ -1,11 +1,11 @@
 .l-body:has(> .fit > .fit-inner > .full-area-component) > .fit {
-  flex: 1;
+  flex: 1 1 0px;
   width: 100%;
 }
 
 .l-body:has(> .fit > .fit-inner > .full-area-component) > .fit > .fit-inner {
   display: flex;
-  flex: 1;
+  flex: 1 1 0px;
   flex-direction: column;
   min-height: 0;
   transform: none !important;
@@ -52,4 +52,8 @@
 
 .panels {
     margin-top: 1rem;
+}
+
+.fit-inner {
+    transform: none !important;
 }

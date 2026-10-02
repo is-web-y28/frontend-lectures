@@ -45,8 +45,10 @@ Per-deck `--out dist/<slug>` resolves under the Slidev entry directory, e.g. `sl
 - Named slots only work when the selected layout exposes them: local `code-visual.vue` exposes `::visual::`; do not insert `::right::` into arbitrary layouts. Preserve valid `---` boundaries, avoid duplicate headmatter keys, and quote YAML values containing colons or commas.
 - HTML comments at slide ends are presenter notes. Layout `notes:` arrays can be visible explanations; they are not interchangeable. Keep deck content, instructor scripts, README links, and numbered npm scripts synchronized when adding or renaming a lecture.
 - Reuse theme tokens such as `--fg`, `--accent`, and `--surface-bg`. Shared chrome belongs in `slides/styles/index.css` and `slides/global-bottom.vue`; avoid duplicate footers and preserve `full-area-component` sizing behavior.
+- Full-slide interactive demos on `default` need `class="full-area-component"` so Tahta's Fit does not shrink them. Give iframe previews a sized, positioned stage and fill that stage; do not rely on an unresolved chain of percentage heights.
 - Preserve native controls, labels, keyboard focus, ARIA state, and reduced-motion behavior. For animations, account for Slidev retaining slide instances; clean up timers/frames and use slide enter/leave hooks when activation matters.
 - Preserve highlighting's stale-result guard and escaped fallback. Build scripts use top-level ESM `await`, propagate failures, and stop on failed child builds; do not swallow errors or add unnecessary services/stores to deterministic demos.
+- Lecture 5's Tailwind input explicitly scans both the standalone HTML and `CssFrameworkCompareDemo.vue`. Keep native disabled styling in authored Sass/utility classes, restrict hover to enabled buttons, and regenerate artifacts with `npm run build:css-examples`; never patch generated CSS.
 
 ## Presentation & Speaker-Note Style
 
@@ -58,6 +60,7 @@ Use `slides/04-modern-css.md` and `slides/05-css-organization.md` as the referen
 - Build a connected argument: prior knowledge → observable problem → explanation of the mechanism → choice of solution → demonstration → student application → takeaway and the next lecture. Do not turn the lecture into a catalog of properties, tools, or fashionable approaches.
 - Continue the Frontend Meetup example where it fits: the same event card, schedule, registration area, and actions expose different problems. Change one relevant condition at a time so students can explain the result rather than memorize a screenshot.
 - Plan a 90-minute main route including demonstrations, audience discussion, exercises, and questions. Label appendices explicitly as outside the main 90 minutes; they are optional reference material, not required prerequisites hidden after the closing slide.
+- Lecture 05 currently uses lecturer-led demonstrations and prediction/discussion questions, with no student exercises in either the main route or appendices. Preserve that format when revising its slides and speaker notes.
 - Teach decisions and their boundaries. Separate mechanism from condition, CSS from HTML/JavaScript behavior, source from build artifact, and browser rules from team conventions. State when a solution applies and what it does not solve; avoid universal claims such as “the last rule always wins” or “a framework provides accessibility automatically.”
 
 ### Visible Slides
