@@ -13,7 +13,7 @@
   --card-accent: var(--accent);
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --surface: #1d1b18;
     --surface-raised: #292621;
@@ -35,6 +35,7 @@ body {
   color: var(--text);
   font-family: system-ui, sans-serif;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 a {
@@ -138,7 +139,7 @@ footer p {
 .cards {
   display: grid;
   gap: var(--space-4);
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
 }
 
 .event-card {
@@ -237,10 +238,21 @@ footer p {
 
 .notice {
   margin-top: var(--space-4) !important;
-  border-inline-start: 0.25rem solid var(--card-accent);
+  border-inline-start: 0.25rem solid var(--border);
   background: color-mix(in srgb, var(--card-accent) 9%, var(--surface-raised));
   padding: var(--space-2);
   animation: reveal 240ms ease-out both;
+}
+
+.notice__status[data-state="error"] {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@supports selector(.notice:has(> .notice__status)) {
+  .notice:has(> .notice__status[data-state="error"]) {
+    border-inline-color: var(--accent);
+  }
 }
 
 footer {
@@ -277,6 +289,35 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .event-card {
     transition: none;
+  }
+
+  .notice {
+    animation: none;
+  }
+}
+
+@media print {
+  .site-header nav,
+  .actions,
+  .section-heading > a,
+  .event-card__body > a {
+    display: none;
+  }
+
+  .hero {
+    min-height: 0;
+    padding-block: var(--space-4);
+  }
+
+  .page-layout,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    break-inside: avoid;
+    box-shadow: none;
+    transform: none;
   }
 
   .notice {
