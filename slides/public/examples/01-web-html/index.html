@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Расписание и регистрация на Frontend Meetup.">
+    <link rel="icon" href="./meetup.svg" type="image/svg+xml">
     <title>Frontend Meetup</title>
   </head>
   <body>
@@ -31,11 +33,29 @@
 
         <section id="program" aria-labelledby="program-title">
           <h2 id="program-title">Программа</h2>
-          <ol>
-            <li><time datetime="2026-09-17T19:00">19:00</time> — Как проектировать понятную структуру страницы.</li>
-            <li><time datetime="2026-09-17T19:35">19:35</time> — Нативные элементы и доступные интерфейсы.</li>
-            <li><time datetime="2026-09-17T20:15">20:15</time> — Вопросы и обсуждение.</li>
-          </ol>
+          <table>
+            <caption>Расписание Frontend Meetup</caption>
+            <thead>
+              <tr>
+                <th scope="col">Время</th>
+                <th scope="col">Тема</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><time datetime="2026-09-17T19:00">19:00</time></td>
+                <td>Как проектировать понятную структуру страницы.</td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-09-17T19:35">19:35</time></td>
+                <td>Нативные элементы и доступные интерфейсы.</td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-09-17T20:15">20:15</time></td>
+                <td>Вопросы и обсуждение.</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
 
         <section id="speakers" aria-labelledby="speakers-title">
@@ -48,7 +68,7 @@
 
         <section id="registration" aria-labelledby="registration-title">
           <h2 id="registration-title">Регистрация</h2>
-          <form>
+          <form action="./index.html" method="get">
             <p>
               <label for="name">Имя</label>
               <input id="name" name="name" autocomplete="name" required>
@@ -56,6 +76,30 @@
             <p>
               <label for="email">Электронная почта</label>
               <input id="email" name="email" type="email" autocomplete="email" required>
+            </p>
+            <fieldset>
+              <legend>Формат участия</legend>
+              <label><input type="radio" name="format" value="offline" checked> Очно</label>
+              <label><input type="radio" name="format" value="online"> Онлайн</label>
+            </fieldset>
+            <p>
+              <label for="level">Опыт во frontend</label>
+              <select id="level" name="level">
+                <option value="beginner">Начинаю</option>
+                <option value="practitioner">Уже работаю</option>
+              </select>
+            </p>
+            <p id="comment-help">До 300 символов; вопрос не будет опубликован без согласия.</p>
+            <p>
+              <label for="comment">Вопрос организаторам</label>
+              <textarea id="comment" name="comment" maxlength="300" aria-describedby="comment-help"></textarea>
+            </p>
+            <p>
+              <label><input type="checkbox" name="updates" value="yes"> Получать анонсы</label>
+            </p>
+            <p>
+              <label for="internal">Служебная отметка (демонстрация)</label>
+              <input id="internal" name="internal" value="не отправляется" disabled>
             </p>
             <button type="submit">Зарегистрироваться</button>
           </form>
@@ -65,6 +109,10 @@
       <aside>
         <h2>Пропускной режим</h2>
         <p>Возьмите документ, удостоверяющий личность. Регистрация закрывается за час до начала встречи.</p>
+        <details>
+          <summary>Как добраться до площадки?</summary>
+          <p>Вход со стороны Кронверкского проспекта, стойка регистрации на первом этаже.</p>
+        </details>
       </aside>
     </main>
 
