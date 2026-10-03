@@ -19,11 +19,13 @@ const stateCode = `.demo-button { background: #075985; }
   outline: 3px solid #075985;
   outline-offset: 3px;
 }
-.demo-button:active { transform: translateY(1px); }`
+.demo-button:active { transform: translateY(1px); }
+.demo-consent:checked { accent-color: #075985; }
+.demo-closed:disabled { opacity: 0.55; }`
 </script>
 
 <template>
-  <section class="state-demo" aria-label="Интерактивные состояния кнопки">
+  <section class="state-demo" aria-label="Интерактивные и нативные состояния элементов">
     <div class="control-panel">
       <p class="eyebrow">Наведите, нажмите Tab, удерживайте Enter или пробел</p>
       <button
@@ -44,6 +46,15 @@ const stateCode = `.demo-button { background: #075985; }
       </button>
       <p class="state" role="status" aria-live="polite">Сейчас: {{ state }}</p>
       <p class="note">Нажатие не сохраняется: это временное состояние элемента, не состояние приложения.</p>
+
+      <div class="native-states">
+        <p class="eyebrow">Нативное состояние — без JavaScript</p>
+        <div class="choice">
+          <input id="css-state-consent" class="demo-consent" type="checkbox">
+          <label for="css-state-consent">Получать напоминание о встрече</label>
+        </div>
+        <button class="demo-closed" type="button" disabled>Регистрация закрыта</button>
+      </div>
     </div>
 
     <HighlightedCode :code="stateCode" lang="css" />
@@ -117,6 +128,43 @@ const stateCode = `.demo-button { background: #075985; }
 .note {
   color: var(--lecture-muted);
   margin: 0;
+}
+
+.native-states {
+  border-top: 1px solid var(--lecture-border);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.native-states .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.choice {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.demo-consent:checked {
+  accent-color: #075985;
+}
+
+.demo-consent:checked + label {
+  color: #075985;
+  font-weight: 700;
+}
+
+.demo-closed:disabled {
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.35rem;
+  color: #475569;
+  cursor: not-allowed;
+  font: inherit;
+  opacity: 0.55;
+  padding: 0.55rem 0.75rem;
 }
 
 </style>
