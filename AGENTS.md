@@ -10,7 +10,7 @@ Russian-language teaching materials for a frontend web-development course: Slide
 - Slide Markdown uses automatically discovered components from `slides/components/`. Click-sequenced demos derive state from `useSlideContext().$clicks` and reserve steps with `VClickGap`; playground controls use local Vue `ref`/`computed` state. There is no application-wide store or dependency-injection layer.
 - `MarkdownText.vue` renders through `slides/markdown.ts` with raw HTML disabled. `HighlightedCode.vue` lazily loads Shiki languages/themes and guards against stale asynchronous renders.
 - Public examples are standalone browser pages, separate from Vue demos. Lecture 5's generator transforms authored Sass/CSS into local CSS artifacts consumed by its example page.
-- Pages publication: `scripts/build-pages.mjs` discovers decks, builds `slides/dist/<slug>/` with `/<repository>/<slug>/` base URLs, and copies README into `slides/dist/index.md`. GitHub Actions renders this through Jekyll into `_site` and deploys it. Root `index.html` is a teaching sample, not the published homepage.
+- Pages publication: `scripts/build-pages.mjs --base <site-path>` discovers decks, builds `slides/dist/<slug>/` with `<site-path>/<slug>/` base URLs, and copies README into `slides/dist/index.md`. A root `404.html` redirects deep links to the matching deck; its entry restores the original path, query, and hash before Slidev starts. GitHub Actions takes the site base from Pages metadata or the manual `base` input, renders the catalog through Jekyll into `_site`, and deploys it. Root `index.html` is a teaching sample, not the published homepage.
 
 ## Key Directories
 
@@ -31,7 +31,7 @@ npm run build                       # All decks; delegates to build:all
 npm run build:css-examples           # Regenerate lecture 5's CSS artifacts
 npx tahta-lint slides/05-css-organization.md
 npx slidev export-notes slides/05-css-organization.md --output /tmp/lecture-05-notes.pdf
-GITHUB_REPOSITORY=owner/repository npm run build:pages
+npm run build:pages -- --base /repository/ # Use --base / for root/custom-domain deployment
 ```
 
 Per-deck `--out dist/<slug>` resolves under the Slidev entry directory, e.g. `slides/dist/05-css-organization/`. The Pages and CSS generators delete/recreate their respective output directories. CSS-example generation is **not** automatically run by the deck build or CI; regenerate after changing its inputs.
