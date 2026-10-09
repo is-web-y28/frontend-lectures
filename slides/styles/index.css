@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.l-body > .fit > .fit-inner > :is(.full-area-component, .quiz) {
+.l-body > .fit > .fit-inner > .full-area-component {
   margin-block-start: var(--sp-4);
 }
 
