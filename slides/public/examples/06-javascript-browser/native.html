@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Нативное и JavaScript-раскрытие</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="demo-page">
+      <header class="page-header">
+        <p class="eyebrow">Лекция 6 · JavaScript в браузере</p>
+        <h1>Раскрытие: HTML и JavaScript</h1>
+        <p>
+          Нативный <code>details</code> хорош для простого раскрытия, но не
+          заменяет все пользовательские сценарии.
+        </p>
+      </header>
+
+      <section class="panel disclosure-demo" aria-labelledby="native-heading">
+        <h2 id="native-heading">Нативный HTML</h2>
+        <p class="hint">Попробуйте раскрыть блок мышью, Enter или Space.</p>
+        <details>
+          <summary>Подробности (HTML)</summary>
+          <div class="event-details">
+            <p><strong>Frontend Meetup:</strong> JavaScript в браузере</p>
+            <p>18 октября · 19:00 · онлайн.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel disclosure-demo" aria-labelledby="javascript-heading">
+        <h2 id="javascript-heading">Пользовательская кнопка</h2>
+        <p class="hint">
+          Предскажите: какие значения у <code>aria-expanded</code> и
+          <code>hidden</code> будут после нажатия?
+        </p>
+        <div class="button-row">
+          <button
+            id="javascript-details-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="javascript-details-panel"
+            disabled
+          >
+            Подробности (JavaScript)
+          </button>
+          <span id="javascript-required" class="hint">Для этой кнопки нужен JavaScript</span>
+        </div>
+        <div id="javascript-details-panel" class="event-details" hidden>
+          <p><strong>Frontend Meetup:</strong> JavaScript в браузере</p>
+          <p>18 октября · 19:00 · онлайн.</p>
+        </div>
+        <output id="javascript-details-state" class="readout" aria-live="polite">
+          JavaScript не запущен: кнопка недоступна, а панель скрыта.
+        </output>
+      </section>
+    </main>
+    <script src="./native.js" defer></script>
+  </body>
+</html>
