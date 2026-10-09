@@ -1,10 +1,14 @@
+<script setup lang="ts">
+const exampleUrl = `${import.meta.env.BASE_URL}examples/01-web-html/index.html`
+</script>
+
 <template>
   <section class="semantic-document-preview" aria-label="Предпросмотр семантической HTML-страницы мероприятия">
     <iframe
-      src="/examples/01-web-html/index.html"
+      :src="exampleUrl"
       title="Семантическая HTML-страница мероприятия"
     ></iframe>
-    <a href="/examples/01-web-html/index.html" target="_blank" rel="noreferrer">
+    <a :href="exampleUrl" target="_blank" rel="noreferrer">
       Открыть пример в новой вкладке
     </a>
   </section>

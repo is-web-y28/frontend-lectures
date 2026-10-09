@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Нативные аудио и видео — примеры HTML</title>
+  <style>
+    body {
+      margin: 1rem;
+      color: #172033;
+      background: #fff;
+      font: 14px/1.4 system-ui, sans-serif;
+    }
+
+    h1 { font-size: 1.15rem; }
+    h2 { margin: 1rem 0 0.4rem; font-size: 1rem; }
+    p { margin: 0.4rem 0; }
+    audio, video { display: block; width: 100%; }
+    video { background: #172033; aspect-ratio: 16 / 9; }
+    video::cue { font-size: 1rem; }
+    summary { cursor: pointer; }
+    details { margin-top: 0.5rem; }
+    a { color: #2454b8; }
+    :focus-visible { outline: 3px solid #2454b8; outline-offset: 3px; }
+    .credits { font-size: 0.8rem; }
+
+    @media (max-height: 400px) {
+      body { margin: 0.6rem; font-size: 13px; }
+      h1 {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+      }
+      h2 { margin: 0.5rem 0 0.25rem; }
+      video { max-height: 9rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Нативные проигрыватели HTML</h1>
+    <section aria-labelledby="audio-title">
+      <h2 id="audio-title">Аудио: рычание динозавра</h2>
+      <audio controls preload="metadata" aria-labelledby="audio-title" aria-describedby="audio-text">
+        <source src="./t-rex-roar.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает audio.
+      </audio>
+      <p id="audio-text">Текстовая альтернатива: короткое громкое рычание динозавра, без речи.</p>
+    </section>
+    <section aria-labelledby="video-title">
+      <h2 id="video-title">Видео: фрагмент Sintel</h2>
+      <video controls preload="metadata" aria-labelledby="video-title" aria-describedby="video-help">
+        <source src="./sintel-short.webm" type="video/webm">
+        <track src="./sintel-ru.vtt" kind="subtitles" srclang="ru" label="Русский" default>
+        Ваш браузер не поддерживает video.
+      </video>
+      <p id="video-help">Перемотайте к 0:19: первая реплика появится в субтитрах. Дорожка переводит речь, но не описывает все звуки и действия.</p>
+      <details>
+        <summary>Текстовая альтернатива к видео</summary>
+        <p>Анимационный фрагмент: путник разговаривает с молодой девушкой у огня. Он предупреждает об опасности путешествия в одиночку. Девушка ищет дракона и говорит, что была одна столько, сколько себя помнит. В следующей сцене она ухаживает за раненым маленьким драконом.</p>
+        <dl>
+          <dt>0:19–0:27 · Путник</dt>
+          <dd>У этого клинка тёмное прошлое. Он пролил много невинной крови.</dd>
+          <dt>0:29–0:36 · Путник</dt>
+          <dd>Глупо путешествовать одной, совершенно неподготовленной. Тебе повезло, что твоя кровь ещё течёт.</dd>
+          <dt>0:36 · Девушка</dt>
+          <dd>Спасибо.</dd>
+          <dt>0:38–0:45 · Путник</dt>
+          <dd>Итак… Что привело тебя в землю хранителей врат?</dd>
+          <dt>0:46 · Девушка</dt>
+          <dd>Я кое-кого ищу.</dd>
+          <dt>0:49–0:53 · Путник</dt>
+          <dd>Кого-то очень дорогого? Родственную душу?</dd>
+          <dt>0:54 · Девушка</dt>
+          <dd>Дракона.</dd>
+          <dt>0:59 · Путник</dt>
+          <dd>Опасная цель для одинокого охотника.</dd>
+          <dt>1:03 · Девушка</dt>
+          <dd>Я была одна столько, сколько себя помню.</dd>
+          <dt>1:58 · Девушка, обращаясь к дракону</dt>
+          <dd>Мы почти закончили. Тише…</dd>
+        </dl>
+      </details>
+    </section>
+    <details class="credits">
+      <summary>Источники и лицензии медиа</summary>
+      <p>Аудио — <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio">пример MDN с T-Rex</a>, файл из <a href="https://github.com/mdn/shared-assets/blob/main/audio/t-rex-roar.mp3">mdn/shared-assets</a>. <a href="https://github.com/mdn/shared-assets/blob/main/LICENSE.md">Условия использования примеров MDN</a>.</p>
+      <p>Sintel — © copyright Blender Foundation | <a href="https://durian.blender.org/">durian.blender.org</a>, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. <a href="https://durian.blender.org/sharing/">Условия правообладателя</a>. Использован <a href="https://github.com/mdn/shared-assets/blob/main/videos/sintel-short.webm">готовый фрагмент из MDN</a>, не полный фильм. Русский перевод реплик подготовлен для этого учебного примера; таймкоды взяты из <a href="https://developer.mozilla.org/shared-assets/misc/sintel-en.vtt">английского WebVTT-примера MDN</a>.</p>
+      <p><a href="./t-rex-roar.mp3" download>Скачать аудио</a> · <a href="./sintel-short.webm" download>Скачать видео</a> · <a href="./sintel-ru.vtt" download>Скачать субтитры</a></p>
+    </details>
+  </main>
+</body>
+</html>
