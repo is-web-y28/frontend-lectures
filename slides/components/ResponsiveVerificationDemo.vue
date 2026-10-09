@@ -1,7 +1,9 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, useId } from "vue";
 
 const mode = ref("wide");
+const programTitleId = useId();
+const registrationTitleId = useId();
 
 const modes = [
   { id: "wide", label: "Широко · 100%" },
@@ -44,15 +46,15 @@ const observation = computed(() => {
       </p>
 
       <div class="schedule">
-        <section class="program" aria-labelledby="verification-program-title">
+        <section class="program" :aria-labelledby="programTitleId">
           <p class="eyebrow">Программа</p>
-          <h3 id="verification-program-title">Современный CSS</h3>
+          <h3 :id="programTitleId">Современный CSS</h3>
           <p>18:00 · основная сессия · полный текст описания остаётся в документе.</p>
         </section>
 
-        <aside class="registration" aria-labelledby="verification-registration-title">
+        <aside class="registration" :aria-labelledby="registrationTitleId">
           <p class="eyebrow">Регистрация</p>
-          <h3 id="verification-registration-title">Участие</h3>
+          <h3 :id="registrationTitleId">Участие</h3>
           <p>Билет бесплатный. Напоминание придёт на почту.</p>
           <div class="actions" aria-label="Действия регистрации">
             <button type="button">Участвовать</button>
