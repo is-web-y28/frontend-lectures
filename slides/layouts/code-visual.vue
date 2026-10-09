@@ -26,29 +26,37 @@ const { $frontmatter } = useSlideContext();
 .code-visual-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-rows: minmax(0, 1fr);
   gap: var(--sp-6);
   align-items: stretch;
   min-height: 0;
+  flex: 1;
+  margin-block-start: var(--sp-4);
 }
 
 .code-visual-code,
 .code-visual-result {
   min-width: 0;
+  min-height: 0;
 }
 
 .code-visual-code {
   display: flex;
-  align-items: center;
+  align-items: stretch;
 }
 
 .code-visual-code :deep(.slidev-code-wrapper) {
-  max-width: 100%;
-  overflow-x: auto;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .code-visual-code :deep(pre) {
   width: 100%;
   margin: 0;
+  --slidev-code-font-size: 11px;
+  --slidev-code-line-height: 13px;
+  --slidev-code-padding: 8px;
 }
 
 .code-visual-result {

@@ -57,3 +57,13 @@
 .fit-inner {
     transform: none !important;
 }
+
+.slidev-layout p {
+    max-width: initial;
+}
+
+/* Tahta's soft palette stays light even when Slidev selects its dark mode. */
+[data-variant='soft'] .slidev-layout .shiki,
+[data-variant='soft'] .slidev-layout .shiki span {
+  color: var(--shiki-light) !important;
+}
