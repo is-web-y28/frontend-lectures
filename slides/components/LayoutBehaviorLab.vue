@@ -35,8 +35,8 @@ function scrollOverflowStage() {
 <template>
   <section v-if="props.mode === 'visibility'" class="layout-behavior-lab" aria-label="Проверка способов скрыть элемент">
     <div class="lab-heading">
-      <strong>Проверьте клавиатурой</strong>
-      <span>Нажимайте Tab: прозрачная кнопка проявляет фокус и принимает Enter.</span>
+      <strong>Клавиатурный фокус</strong>
+      <span>Tab переводит фокус на прозрачную кнопку; Enter активирует её.</span>
     </div>
 
     <div class="visibility-row" aria-label="Сравнение геометрии элементов">

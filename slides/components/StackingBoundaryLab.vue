@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 
 const contexts = ref(true)
 const clipped = ref(false)
-const status = ref('Измените границы и наблюдайте реальную отрисовку.')
+const status = ref('Контексты предков включены: потомок с z-index: 999 остаётся внутри левого контекста.')
 
 const leftStyle = computed(() => contexts.value ? { position: 'relative', zIndex: 1, transform: 'translateZ(0)' } : { position: 'relative' })
 const rightStyle = computed(() => contexts.value ? { position: 'relative', zIndex: 2, opacity: 0.96 } : { position: 'relative' })

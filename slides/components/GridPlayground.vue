@@ -1,158 +1,365 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
-const columnCount = ref(3)
-const gap = ref(8)
-const isColumn = ref(false)
-const items = ref(Array.from({ length: 6 }, (_, i) => `Item ${i + 1}`))
-
-const columnsCSS = computed(() => Array(columnCount.value).fill('1fr').join(' '))
-
-function updateColumns(count) {
-  columnCount.value = count
+function createCard(id) {
+  return { id, columnStart: 'auto', columnEnd: 'auto', rowStart: 'auto', rowEnd: 'auto' }
 }
 
-function addGridCard() {
-  if (items.value.length < 8) items.value.push(`Item ${items.value.length + 1}`)
+const columnTracks = ref(Array.from({ length: 3 }, () => ({ size: 1, unit: 'fr' })))
+const rowTracks = ref(Array.from({ length: 2 }, () => ({ size: 64, unit: 'px' })))
+const gap = ref(8)
+const items = ref(Array.from({ length: 6 }, (_, index) => createCard(index + 1)))
+const selectedIndex = ref(0)
+const columnIndex = ref(0)
+const rowIndex = ref(0)
+const gridRoot = ref(null)
+let nextCardId = 7
+
+const selectedCard = computed(() => items.value[selectedIndex.value])
+const selectedColumn = computed(() => columnTracks.value[columnIndex.value])
+const selectedRow = computed(() => rowTracks.value[rowIndex.value])
+const columnsCSS = computed(() => columnTracks.value.map(track => `${track.size}${track.unit}`).join(' '))
+const rowsCSS = computed(() => rowTracks.value.map(track => `${track.size}px`).join(' '))
+const gridStyle = computed(() => ({
+  gridTemplateColumns: columnsCSS.value,
+  gridTemplateRows: rowsCSS.value,
+  gridAutoRows: '64px',
+  gap: `${gap.value}px`,
+}))
+const generatedCSS = computed(() => `.grid {
+  display: grid;
+  grid-template-columns: ${columnsCSS.value};
+  grid-template-rows: ${rowsCSS.value};
+  grid-auto-rows: 64px;
+  gap: ${gap.value}px;
+}
+.card-${selectedCard.value.id} {
+  grid-column: ${selectedCard.value.columnStart} / ${selectedCard.value.columnEnd};
+  grid-row: ${selectedCard.value.rowStart} / ${selectedCard.value.rowEnd};
+}`)
+
+function clearOutsideLines(axis, lastLine) {
+  const start = `${axis}Start`
+  const end = `${axis}End`
+  for (const card of items.value) {
+    if (card[start] > lastLine || card[end] > lastLine) {
+      card[start] = 'auto'
+      card[end] = 'auto'
+    }
+  }
+}
+
+function updateColumns(count) {
+  while (columnTracks.value.length < count) columnTracks.value.push({ size: 1, unit: 'fr' })
+  columnTracks.value.length = count
+  columnIndex.value = Math.min(columnIndex.value, count - 1)
+  clearOutsideLines('column', count + 1)
+}
+
+function updateRows(event) {
+  if (!event.target.validity.valid) return
+  const count = event.target.valueAsNumber
+  while (rowTracks.value.length < count) rowTracks.value.push({ size: 64, unit: 'px' })
+  rowTracks.value.length = count
+  rowIndex.value = Math.min(rowIndex.value, count - 1)
+  clearOutsideLines('row', count + 1)
+}
+
+function updateSize(track, event) {
+  if (event.target.validity.valid) track.size = event.target.valueAsNumber
+}
+
+async function addGridCard() {
+  items.value.push(createCard(nextCardId++))
+  selectedIndex.value = items.value.length - 1
+  await nextTick()
+  gridRoot.value?.lastElementChild?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
 }
 
 function removeGridCard() {
-  if (items.value.length > 1) items.value.pop()
+  if (items.value.length <= 1) return
+  items.value.pop()
+  selectedIndex.value = Math.min(selectedIndex.value, items.value.length - 1)
 }
-
 </script>
 <template>
-  <div class="grid-playground">
+  <section class="grid-playground" aria-label="Редактор треков и размещения карточек Grid">
     <div class="controls">
-      <div class="control-group">
-        <label>Колонки</label>
-        <div class="button-row">
-          <button v-for="n in 4" :key="n" :class="{ active: columnCount === n }" @click="updateColumns(n)">
-            {{ n }}
-          </button>
+      <div class="basic-controls">
+        <div role="group" aria-label="Количество колонок">
+          <span class="control-label">Колонки</span>
+          <div class="button-row">
+            <button
+              v-for="n in 4"
+              :key="n"
+              type="button"
+              :aria-pressed="columnTracks.length === n"
+              @click="updateColumns(n)"
+            >{{ n }}</button>
+          </div>
+        </div>
+        <div role="group" aria-label="Промежуток между треками">
+          <span class="control-label">gap, px</span>
+          <div class="button-row">
+            <button
+              v-for="value in [0, 4, 8, 16]"
+              :key="value"
+              type="button"
+              :aria-pressed="gap === value"
+              @click="gap = value"
+            >{{ value }}</button>
+          </div>
         </div>
       </div>
 
-      <div class="control-group">
-        <label>gap (px)</label>
-        <div class="button-row">
-          <button v-for="g in [0, 4, 8, 16]" :key="g" :class="{ active: gap === g }" @click="gap = g">
-            {{ g }}
-          </button>
+      <fieldset>
+        <legend>Размеры треков</legend>
+        <div class="track-controls">
+          <label>Колонка
+            <select v-model.number="columnIndex">
+              <option v-for="(_, index) in columnTracks" :key="index" :value="index">{{ index + 1 }}</option>
+            </select>
+          </label>
+          <label>Ширина
+            <input type="number" min="0.25" step="0.25" :value="selectedColumn.size" @input="updateSize(selectedColumn, $event)">
+          </label>
+          <label>Единица
+            <select v-model="selectedColumn.unit">
+              <option value="fr">fr</option>
+              <option value="px">px</option>
+            </select>
+          </label>
+          <label>Число строк
+            <input type="number" min="1" step="1" :value="rowTracks.length" @input="updateRows">
+          </label>
+          <label>Строка
+            <select v-model.number="rowIndex">
+              <option v-for="(_, index) in rowTracks" :key="index" :value="index">{{ index + 1 }}</option>
+            </select>
+          </label>
+          <label>Высота, px
+            <input type="number" min="1" step="1" :value="selectedRow.size" @input="updateSize(selectedRow, $event)">
+          </label>
         </div>
-      </div>
+      </fieldset>
 
-      <div class="control-group">
-        <label>Свойства</label>
-        <button :class="{ active: isColumn }" @click="isColumn = !isColumn">
-          grid-column: span 2
-        </button>
+      <fieldset>
+        <legend>Карточки</legend>
         <div class="button-row">
-          <button @click="addGridCard" :disabled="items.length >= 8">+ карточка</button>
-          <button @click="removeGridCard" :disabled="items.length <= 1">− карточка</button>
+          <button type="button" @click="addGridCard">+ карточка</button>
+          <button type="button" :disabled="items.length <= 1" @click="removeGridCard">− карточка</button>
+          <span class="card-count" aria-live="polite">{{ items.length }}</span>
         </div>
-      </div>
+        <label>Карточка
+          <select v-model.number="selectedIndex">
+            <option v-for="(item, index) in items" :key="item.id" :value="index">Карточка {{ item.id }}</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Линии выбранной карточки</legend>
+        <div class="placement-controls">
+          <label>Колонка: начало
+            <select v-model="selectedCard.columnStart">
+              <option value="auto">auto</option>
+              <option v-for="line in columnTracks.length + 1" :key="line" :value="line">{{ line }}</option>
+            </select>
+          </label>
+          <label>Колонка: конец
+            <select v-model="selectedCard.columnEnd">
+              <option value="auto">auto</option>
+              <option v-for="line in columnTracks.length + 1" :key="line" :value="line">{{ line }}</option>
+            </select>
+          </label>
+          <label>Строка: начало
+            <select v-model="selectedCard.rowStart">
+              <option value="auto">auto</option>
+              <option v-for="line in rowTracks.length + 1" :key="line" :value="line">{{ line }}</option>
+            </select>
+          </label>
+          <label>Строка: конец
+            <select v-model="selectedCard.rowEnd">
+              <option value="auto">auto</option>
+              <option v-for="line in rowTracks.length + 1" :key="line" :value="line">{{ line }}</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
     </div>
 
-    <div class="playground-area" :style="{ display: 'grid', gridTemplateColumns: columnsCSS, gap: `${gap}px` }">
-      <div v-for="(item, index) in items" :key="index" class="grid-item" :class="{ span2: index === 0 && isColumn }">
-        {{ item }}
+    <div class="preview-panel">
+      <div class="grid-viewport" tabindex="0" aria-label="Сетка карточек, доступна прокрутка">
+        <div ref="gridRoot" class="playground-area" :style="gridStyle">
+          <button
+            v-for="(item, index) in items"
+            :key="item.id"
+            type="button"
+            class="grid-item"
+            :class="[`card-${item.id}`, { selected: selectedIndex === index }]"
+            :aria-label="`Выбрать карточку ${item.id}`"
+            :aria-pressed="selectedIndex === index"
+            :style="{ gridColumn: `${item.columnStart} / ${item.columnEnd}`, gridRow: `${item.rowStart} / ${item.rowEnd}` }"
+            @click="selectedIndex = index"
+          >Карточка {{ item.id }}</button>
+        </div>
       </div>
+      <pre class="generated-code"><code>{{ generatedCSS }}</code></pre>
     </div>
-    <code class="generated-code">
-      display: grid;
-      grid-template-columns: {{ columnsCSS }};
-      gap: {{ gap }}px;
-      grid-column: {{ isColumn ? 'span 2' : 'auto' }};
-    </code>
-  </div>
+  </section>
 </template>
 
 <style scoped>
 .grid-playground {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.9fr) minmax(0, 1.4fr);
+  flex: 1;
   min-height: 0;
-  flex-direction: column;
-  gap: 0.55rem;
-  overflow: hidden;
+  gap: 0.8rem;
+  color: var(--fg);
 }
 
 .controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.15rem 0.3rem 0.15rem 0.15rem;
+}
+
+.basic-controls,
+.placement-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.track-controls {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.45rem;
+  gap: 0.4rem;
 }
 
-.control-group {
-  display: flex;
+fieldset {
   min-width: 0;
-  flex-direction: column;
-  gap: 0.2rem;
+  margin: 0;
+  padding: 0.35rem 0.5rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
 }
 
-.control-group label {
-  color: #64748b;
-  font-size: 0.7rem;
+legend {
+  padding-inline: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+label,
+.control-label {
+  display: block;
+  min-width: 0;
+  color: var(--fg-dim);
+  font-size: 0.66rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .button-row {
   display: flex;
+  align-items: center;
   gap: 0.25rem;
+  margin-block: 0.2rem;
 }
 
-.control-group button {
+button,
+select,
+input {
   box-sizing: border-box;
   min-width: 0;
   padding: 0.25rem 0.4rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.25rem;
-  background: white;
-  color: #0f172a;
-  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  background: var(--surface-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.72rem;
 }
 
-.control-group button.active {
-  background: #0284c7;
-  color: white;
-  border-color: #0284c7;
+select,
+input { width: 100%; }
+
+button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface-bg));
+}
+
+button:disabled { opacity: 0.45; }
+input:invalid { border-color: #b91c1c; }
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+.grid-viewport:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.card-count {
+  margin-inline-start: auto;
+  font: 700 0.75rem var(--font-mono);
+}
+
+.preview-panel {
+  display: grid;
+  grid-template-rows: minmax(6rem, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+  gap: 0.5rem;
+}
+
+.grid-viewport {
+  min-height: 0;
+  overflow: auto;
+  padding: 0.4rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.4rem;
 }
 
 .playground-area {
-  min-height: 84px;
-  max-height: 148px;
-  overflow: auto;
+  display: grid;
+  min-width: 0;
+  align-content: start;
 }
 
 .grid-item {
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   overflow-wrap: anywhere;
-  background: #dcfce7;
-  border: 1px solid #86efac;
-  color: #14532d;
-  padding: 0.55rem;
-  border-radius: 0.375rem;
-  text-align: center;
-  font-size: 0.75rem;
+  background: color-mix(in oklab, var(--accent) 6%, var(--surface-bg));
 }
 
-.grid-item.span2 {
-  grid-column: span 2;
-  background: #fde68a;
-  border-color: #fbbf24;
-  color: #78350f;
+.grid-item.selected {
+  border: 2px solid var(--accent);
+  font-weight: 700;
 }
 
 .generated-code {
-  max-height: 78px;
+  max-height: 12rem;
+  min-width: 0;
   margin: 0;
   overflow: auto;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  font-size: 0.7rem;
-  line-height: 1.35;
+  background: var(--surface-bg);
+  color: var(--fg);
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.4rem;
+  font: 0.68rem/1.35 var(--font-mono);
 }
 </style>

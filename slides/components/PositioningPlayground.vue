@@ -131,7 +131,7 @@ function handleScroll() {
           <span class="ancestor-label">scroll container · parent: {{ showAncestor ? 'relative' : 'static' }}</span>
           <p class="scroll-marker">Начало содержимого</p>
           <div v-if="position !== 'fixed'" :style="childStyle" class="positioned-child">Child · z-index {{ zIndex }}</div>
-          <p class="scroll-space">Прокрутите область: absolute уедет вместе с содержимым, fixed останется у viewport, sticky остановится у верхней границы контейнера.</p>
+          <p class="scroll-space">При прокрутке absolute уезжает вместе с содержимым, fixed остаётся у viewport, sticky останавливается у верхней границы контейнера.</p>
           <p class="scroll-marker">Конец содержимого</p>
         </div>
       </div>
@@ -143,7 +143,7 @@ function handleScroll() {
 
     <p class="hint">
       {{ position === 'static' ? 'static — остаётся в потоке; inset и z-index не меняют положение.' :
-         position === 'relative' ? 'relative — сохраняет место в потоке; попробуйте inset.' :
+         position === 'relative' ? 'relative — сохраняет место в потоке; inset смещает коробку.' :
          position === 'absolute' ? 'absolute — прокрутка увозит его вместе с containing block.' :
          position === 'fixed' ? 'fixed — вне scroll container; внешняя рамка моделирует viewport, поэтому Child остаётся на месте.' :
          'sticky — начинается в потоке и удерживается у верхней границы scroll container.' }}
