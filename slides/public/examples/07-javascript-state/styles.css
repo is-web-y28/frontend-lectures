@@ -1,0 +1,439 @@
+:root {
+  color-scheme: light;
+  --ink: #172033;
+  --muted: #526176;
+  --surface: #fff;
+  --canvas: #f2f6fb;
+  --line: #cdd8e7;
+  --accent: #0759bd;
+  --accent-dark: #03438e;
+  --focus: #0759bd;
+  --soft-accent: #eaf3ff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:not(:disabled):hover {
+  background: var(--accent-dark);
+}
+
+button.secondary {
+  background: #fff;
+  color: var(--accent-dark);
+}
+
+button.secondary:not(:disabled):hover {
+  background: var(--soft-accent);
+}
+
+button:disabled {
+  cursor: default;
+  border-color: var(--line);
+  background: #e4eaf3;
+  color: var(--muted);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+input:not([type='checkbox']) {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #8291a9;
+  border-radius: 0.45rem;
+  padding: 0.6rem 0.7rem;
+  background: #fff;
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+}
+
+h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.7rem, 5vw, 2.7rem);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+p {
+  overflow-wrap: anywhere;
+}
+
+.demo-page {
+  width: min(100% - 2rem, 62rem);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 3rem) 0 3rem;
+}
+
+.page-header {
+  margin-bottom: 1.25rem;
+}
+
+.page-header > p:last-child,
+.hint {
+  color: var(--muted);
+}
+
+.eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--accent-dark);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panel {
+  min-width: 0;
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--surface);
+  box-shadow: 0 0.35rem 1.25rem rgb(26 53 93 / 8%);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.readout {
+  display: block;
+  max-block-size: 22rem;
+  margin: 1rem 0 0;
+  overflow: auto;
+  border-left: 0.3rem solid var(--accent);
+  padding: 0.65rem 0.8rem;
+  background: var(--soft-accent);
+  color: #102e55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.split {
+  display: grid;
+  gap: 1rem;
+}
+
+.split > * {
+  min-width: 0;
+}
+
+label {
+  display: block;
+  margin: 0.8rem 0 0.3rem;
+  font-weight: 700;
+}
+
+.registration-form {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.status {
+  min-height: 1.5em;
+  margin: 0.8rem 0 0;
+  color: #253b58;
+}
+
+.split-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.split-header .hint {
+  margin: 0.35rem 0 0;
+}
+
+.filter-row {
+  margin-top: 1rem;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.filter-controls input {
+  flex: 1 1 14rem;
+}
+
+.registration-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border: 1px solid #9fc4ef;
+  border-radius: 0.55rem;
+  padding: 0.75rem;
+  background: #f4f9ff;
+}
+
+.registration > div {
+  min-width: 0;
+}
+
+.registration strong,
+.registration span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.registration span {
+  color: var(--muted);
+}
+
+.remove-button {
+  flex: 0 0 auto;
+}
+
+.empty-state {
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+@media (min-width: 44rem) {
+  .registration-form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem 0.8rem;
+  }
+
+  .registration-form .button-row {
+    grid-column: 1 / -1;
+  }
+
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 34rem) {
+  .demo-page {
+    width: min(100% - 1rem, 62rem);
+    padding-top: 1rem;
+  }
+
+  .button-row > button,
+  .filter-controls,
+  .filter-controls button {
+    width: 100%;
+  }
+
+  .filter-controls {
+    flex-wrap: wrap;
+  }
+
+  .registration {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .remove-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* The deck already provides the topic heading. Keep the iframe compact and scrollable. */
+.embedded {
+  font-size: 14px;
+}
+
+.embedded .demo-page {
+  width: calc(100% - 1.25rem);
+  padding: 0.5rem 0 1rem;
+}
+
+.embedded .page-header {
+  display: none;
+}
+
+.embedded .panel {
+  max-block-size: 17rem;
+  margin-top: 0;
+  overflow: auto;
+  padding: 0.75rem;
+}
+
+.embedded .panel + .panel {
+  margin-top: 0.75rem;
+}
+
+.embedded h2 {
+  font-size: 1.05rem;
+}
+
+.embedded label {
+  margin-top: 0.45rem;
+}
+
+.embedded input:not([type='checkbox']),
+.embedded button {
+  padding: 0.4rem 0.6rem;
+}
+
+.embedded .button-row,
+.embedded .readout {
+  margin-top: 0.6rem;
+}
+
+.embedded .readout {
+  max-block-size: 8.5rem;
+}
+
+.embedded .receiver-page .panel,
+.embedded .receiver-page .readout {
+  max-block-size: none;
+}
+
+.embedded .receiver-page .hint {
+  margin-bottom: 0;
+}
+
+.embedded .registration-list {
+  max-block-size: 8rem;
+  overflow: auto;
+  margin-top: 0.6rem;
+}
+
+.embedded .storage-panel .hint,
+.embedded .diagnostic-panel .hint {
+  margin: 0.4rem 0 0;
+}
+
+@media (min-width: 44rem) {
+  .embedded .demo-page:not(.mechanisms-page) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 0.5rem;
+    align-items: start;
+  }
+
+  .embedded .controls-panel,
+  .embedded .storage-panel {
+    grid-column: 1 / -1;
+  }
+
+  .embedded .panel + .panel {
+    margin-top: 0;
+  }
+
+  .embedded .registration-form {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) 5.5rem auto;
+    align-items: end;
+    gap: 0.5rem;
+  }
+
+  .embedded .registration-form > div {
+    min-width: 0;
+  }
+
+  .embedded .registration-form .button-row {
+    grid-column: auto;
+    margin: 0;
+  }
+
+  .embedded .status {
+    margin-top: 0.35rem;
+    line-height: 1.25;
+  }
+
+  .embedded .list-panel .split-header > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .embedded .filter-row {
+    margin-top: 0.25rem;
+  }
+
+  .embedded .registration {
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .embedded .registration-list {
+    max-block-size: 6rem;
+  }
+
+  .embedded .mechanisms-page .split {
+    gap: 0.5rem;
+  }
+
+  .embedded .mechanisms-page button {
+    font-size: 0.9em;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .embedded .mechanisms-page .readout {
+    font-size: 0.9em;
+    line-height: 1.35;
+  }
+
+  .embedded [aria-label='Код фабрики'] .readout {
+    max-block-size: none;
+  }
+}

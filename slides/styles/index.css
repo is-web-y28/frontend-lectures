@@ -48,6 +48,7 @@
   border-radius: 0.2rem;
   color: var(--accent);
   padding: 0.05em 0.24em;
+  text-transform: none;
 }
 
 .panels {
