@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 
 const props = defineProps<{
   mode: 'state' | 'closures' | 'objects' | 'receivers' | 'storage' | 'full'
+    | 'copies' | 'migration' | 'conflict' | 'indexeddb-rollback' | 'indexeddb-index'
 }>()
 
 const revision = ref(0)

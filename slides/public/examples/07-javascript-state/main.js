@@ -16,6 +16,9 @@ import {
   renderSummary,
 } from './view.js';
 import { mountClosureDemo, mountObjectDemo, mountReceiverDemo } from './mechanisms.js';
+import { mountCopyDemo } from './copy-demo.js';
+import { mountMigrationDemo, mountConflictDemo } from './persistence-demos.js';
+import { mountIndexeddbDemo } from './indexeddb-demo.js';
 
 const root = document.querySelector('#app');
 const parameters = new URLSearchParams(window.location.search);
@@ -30,6 +33,16 @@ if (demo === 'closures') {
   mountReceiverDemo(root);
 } else if (demo === 'objects') {
   mountObjectDemo(root);
+} else if (demo === 'copies') {
+  mountCopyDemo(root);
+} else if (demo === 'migration') {
+  mountMigrationDemo(root);
+} else if (demo === 'conflict') {
+  mountConflictDemo(root);
+} else if (demo === 'indexeddb-rollback') {
+  mountIndexeddbDemo(root, 'rollback');
+} else if (demo === 'indexeddb-index') {
+  mountIndexeddbDemo(root, 'indexes');
 } else {
   mountRegistrationDemo(root, demo === 'state' ? 'state' : 'storage');
 }
