@@ -1,6 +1,7 @@
 {
   "name": "is-web-y28-frontend-lectures",
   "private": true,
+  "workspaces": ["examples/08-tooling-typescript"],
   "scripts": {
  "dev:01": "slidev slides/01-web-html.md --open",
  "dev:02": "slidev slides/02-css-basics.md --open",
@@ -9,6 +10,8 @@
  "dev:05": "slidev slides/05-css-organization.md --open",
  "dev:06": "slidev slides/06-javascript-browser.md --open",
  "dev:07": "slidev slides/07-javascript-state.md --open",
+ "predev:08": "npm run build:ts-examples",
+ "dev:08": "slidev slides/08-tooling-typescript.md --open",
  "build": "npm run build:all",
  "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
  "build:02": "slidev build slides/02-css-basics.md --out dist/02-css-basics --without-notes",
@@ -17,9 +20,16 @@
  "build:05": "slidev build slides/05-css-organization.md --out dist/05-css-organization --without-notes",
  "build:06": "slidev build slides/06-javascript-browser.md --out dist/06-javascript-browser --without-notes",
  "build:07": "slidev build slides/07-javascript-state.md --out dist/07-javascript-state --without-notes",
+ "prebuild:08": "npm run build:ts-examples",
+ "build:08": "slidev build slides/08-tooling-typescript.md --out dist/08-tooling-typescript --without-notes",
+ "prebuild:all": "npm run build:ts-examples",
  "build:all": "slidev build slides/*.md --out dist --without-notes",
  "build:pages": "node scripts/build-pages.mjs",
- "build:css-examples": "node scripts/build-css-examples.mjs"
+ "build:css-examples": "node scripts/build-css-examples.mjs",
+ "dev:ts-examples": "npm run dev --workspace examples/08-tooling-typescript --",
+ "check:ts-examples": "npm run check --workspace examples/08-tooling-typescript",
+ "build:ts-examples": "node scripts/build-typescript-examples.mjs",
+ "preview:ts-examples": "npm run preview --workspace examples/08-tooling-typescript --"
   },
   "devDependencies": {
     "@slidev/cli": "^52.20.1",

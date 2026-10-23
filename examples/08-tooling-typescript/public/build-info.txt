@@ -1,0 +1,2 @@
+Frontend Meetup — public/build-info.txt
+Этот файл Vite копирует в сборку без преобразования TypeScript.
