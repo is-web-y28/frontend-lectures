@@ -57,7 +57,7 @@ Per-deck `--out dist/<slug>` resolves under the Slidev entry directory, e.g. `sl
 
 ## Presentation & Speaker-Note Style
 
-Use `slides/04-modern-css.md` and `slides/05-css-organization.md` as the reference for new lectures and substantial revisions. Match their teaching approach, not a fixed slide count or an identical sequence of layouts.
+Use `slides/07-javascript-state.md` as the primary reference for the structure, explanatory granularity, demonstration rhythm, and speaker notes of new lectures and substantial revisions. Use `slides/04-modern-css.md` and `slides/05-css-organization.md` as complementary references for visual composition and content-specific layouts. Match lecture 07's teaching depth and connected progression, not its exact slide count or an identical sequence of layouts.
 
 ### Narrative & Scope
 
@@ -68,6 +68,18 @@ Use `slides/04-modern-css.md` and `slides/05-css-organization.md` as the referen
 - Lectures 05 and 06 use lecturer-led demonstrations and prediction/discussion questions, with no student exercises in either the main route or appendices. Preserve that format when revising their slides and speaker notes.
 - Teach decisions and their boundaries. Separate mechanism from condition, CSS from HTML/JavaScript behavior, source from build artifact, and browser rules from team conventions. State when a solution applies and what it does not solve; avoid universal claims such as “the last rule always wins” or “a framework provides accessibility automatically.”
 
+### Slide Volume & Chapter Structure
+
+- For a broad 90-minute lecture comparable to lecture 07, plan roughly **55–75 main-route slides**, including chapter dividers, demonstrations, synthesis, and the closing slide. Lecture 07 has 70 main-route slides; its 28 appendix slides are separate. This is a planning reference, not a quota: a narrower topic may need fewer slides, and long demonstrations affect pacing. Do not default to a 30–35-slide topic overview when the subject needs lecture 07's explanatory depth.
+- Count and plan the main route separately from appendices. Allocate time by teaching activity, not by multiplying slides by a fixed duration. Do not add filler, split a coherent example arbitrarily, or move required explanations into the appendix merely to hit a count or schedule.
+- Organize a broad lecture into approximately **4–6 visible chapters**, each framed as a practical question. Use `section` slides to mark changes of problem or responsibility; headings in the instructor script and kickers alone do not give the audience the same navigation. A divider's notes explain what has been established, why the next problem arises, and what the chapter will resolve.
+- Open with the previous lecture's result, an observable problem, a short thesis drawn from that observation, and a route expressed through questions or decisions. The agenda is not a checklist of APIs or tool names.
+- Within a chapter, follow the causal progression **problem → minimal mechanism → prediction and observation → application to the running example → local takeaway or next unresolved question**. The next mechanism must solve a need already made visible; do not merely walk through the course catalog in order.
+- Introduce unfamiliar syntax or behavior in small, independently understandable steps before combining it with the application. For example, lecture 07 explains a callback, `filter`, and destructuring separately before using them together; it separates export, import, the HTML entry point, and application composition. Apply the same granularity to new type-system, framework, and tooling concepts.
+- Use short `statement` or synthesis slides at meaningful conceptual boundaries to consolidate what the previous examples established. Do not rely on a long sequence of code explanations to communicate the lecture's central model, and do not insert theses merely to vary layouts.
+- Before the final diagnostic checklist and conclusion, include an **integrated demonstration** that reconnects the chapter mechanisms in one complete user/developer scenario. State its initial conditions, actions, expected observations, and failure boundary. A list of separately covered operations is not a substitute for showing them work together.
+- Group substantial optional material into clearly marked, independently selectable appendix sections after the main conclusion, following lecture 07's A–D structure where appropriate. Appendices deepen the completed argument; they must not finish an incomplete main route.
+
 ### Visible Slides
 
 - Give each slide one main idea. Prefer a short explanatory title or a focused diagnostic question over a bare topic label: “CSS управляет рамкой, но не выбирает загружаемый файл” communicates more than “Изображения”. Use the kicker for the topic or place in the narrative.
@@ -77,12 +89,16 @@ Use `slides/04-modern-css.md` and `slides/05-css-organization.md` as the referen
 - Choose layouts by content shape and vary them with purpose: `statement` for a thesis, `steps` for an algorithm, `reference` for a diagnostic checklist, `compare`/`vs` for a distinction, `code-explain` for a mechanism, and local `code-visual` when a rendered result must sit beside code.
 - Keep code minimal but sufficient to explain the actual behavior. Reuse the example's selectors and names. Show the relevant relationship, condition, or change, not unrelated setup or a whole application.
 - Use interactive components, isolated browser examples, and progressive reveals when they support observation or prediction. Ask students to predict the outcome, change a named condition, observe the real result, and explain its cause. Do not substitute a hardcoded winner label for browser behavior.
+- A demonstration slide must support the mechanism currently being investigated, not merely display the finished application as a backdrop. For editor, terminal, DevTools, or build demonstrations, external windows are appropriate, but the slide should orient the audience with the relevant source, command, before/after comparison, diagnostic question, or observed artifact. Repeating an unchanged application iframe does not demonstrate a source refactoring or compiler diagnostic.
+- Show the running example evolving through motivated changes, not only isolated feature showcases. Reuse established data, names, and responsibilities; explicitly explain any simplification or removed capability relative to the previous lecture so it does not look like an unexplained regression.
 - Give exercises a bounded task and an observable success criterion; keep their time allocation in speaker notes, not on the visible slide. Ask for the reason behind the result, not only a particular color, class name, or visual match. Preserve content, native interaction, keyboard focus, and accessibility when demonstrating changes.
 
 ### Speaker Notes
 
 - Store slide-local speaker notes in the end-of-slide HTML comment. Frontmatter `notes:` in layouts such as `code-explain` is visible slide content, not a substitute for the spoken explanation. Keep a separate `notes/` instructor script consistent where one exists.
 - Write notes as usable spoken Russian: connected, conversational paragraphs, concrete examples, and questions to the audience. They must help the lecturer explain the slide, not merely repeat its heading and bullets or list “рассказать про…” reminders.
+- Provide slide-local notes for **every slide**, including dividers, demonstrations, the closing slide, and appendices. Substantive slides normally need connected explanatory paragraphs, not just a one-line cue; scale their length to the actual mechanism rather than imposing a word or paragraph quota.
+- Write the explanation itself, not instructions to invent it later. “Explain structural typing” or “show the result” is insufficient without the concrete reasoning and result the lecturer should communicate. Keep operational cues such as “open the terminal” or “ask for a prediction” brief and separate; they must not replace the spoken explanation.
 - For substantive slides, explain the problem, why the shown mechanism produces the result, a relevant limitation or likely misconception, and the connection to the next idea. Use these as coverage criteria, not mandatory repeated subheadings or a rigid template on every slide.
 - Ground the explanation in the code or visual currently on screen. Name the actual selector, declaration, component, or artifact and walk through its effect. Qualify shortcuts and exceptions; distinguish what the demo proves from what remains outside its scope.
 - For demonstrations, name the real controls and their order, the initial state, the audience prediction, the expected visible change, and the causal explanation. Include the observation to discuss afterward; “показать демо” alone is not enough.
