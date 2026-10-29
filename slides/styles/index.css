@@ -1,3 +1,11 @@
+@import '@fontsource-variable/manrope';
+
+/* Keep the soft variant's geometric sans with matching Latin and Cyrillic. */
+:root[data-variant='soft'] {
+  --font-display: 'Manrope Variable', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', system-ui, sans-serif;
+}
+
 .l-body:has(> .fit > .fit-inner > .full-area-component) > .fit {
   flex: 1 1 0px;
   width: 100%;
