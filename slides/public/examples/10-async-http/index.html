@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontend Meetup · асинхронные данные</title>
+<link rel="stylesheet" href="./style.css">
+<main>
+  <h1>Frontend Meetup</h1>
+  <p id="description"></p>
+  <section id="waiting" hidden>
+    <label>Источник <select id="waiting-source"><option value="memory">Массив в памяти</option><option value="http">HTTP-чтение с задержкой</option></select></label>
+    <button id="load-waiting">Показать заявки</button>
+    <button id="respond">Проверить отклик</button>
+    <p id="click-count" role="status">Нажатий во время работы: 0</p>
+  </section>
+  <section id="event-loop" hidden>
+    <label>Сценарий <select id="event-case"></select></label>
+    <pre id="event-source"></pre>
+    <button id="run">Выполнить код</button>
+    <button id="event-respond" hidden disabled>Другое нажатие → U</button>
+  </section>
+  <section id="http" hidden>
+    <label>Ответ <select id="response"><option value="registrations.json">Заявки</option><option value="empty.json">Пустой список</option><option value="invalid.txt">Повреждённый JSON</option><option value="shape.json">Неверные поля</option><option value="503">HTTP 503 (имитация Response)</option></select></label>
+    <button id="load">Загрузить</button>
+  </section>
+  <section id="race" hidden>
+    <label>Защита <select id="protection"><option value="none">Без защиты</option><option value="version">Номер запроса</option><option value="abort">Отмена + номер</option></select></label>
+    <button id="anna">Найти Анну (медленный ответ)</button>
+    <button id="boris">Найти Бориса (быстрый ответ)</button>
+  </section>
+  <section id="state" hidden>
+    <label>Ответ <select id="state-response"><option value="registrations.json">Заявки</option><option value="empty.json">Пустой список</option><option value="shape.json">Неверные поля</option><option value="invalid.txt">Повреждённый JSON</option><option value="503">HTTP 503 (имитация)</option></select></label>
+    <button id="state-load">Загрузить</button>
+    <strong>Состояние и длина массива</strong>
+    <pre id="state-snapshot" aria-live="polite"></pre>
+  </section>
+  <section id="cache" hidden>
+    <button id="read">Открыть список</button>
+    <button id="change">Изменить источник</button>
+    <button id="refresh">Обновить принудительно</button>
+    <label><input id="fail" type="checkbox"> Ошибка обновления</label>
+  </section>
+  <section id="full" hidden>
+    <label>Поиск <select id="full-query"><option value="">Все заявки</option><option value="Анна">Анна · медленный ответ</option><option value="Борис">Борис · быстрый ответ</option></select></label>
+    <button id="full-open">Открыть список</button>
+    <button id="full-refresh">Обновить принудительно</button>
+    <button id="full-change">Изменить источник</button>
+    <label>Ответ при чтении <select id="full-response"><option value="registrations.json">Корректный</option><option value="empty.json">Пустой список</option><option value="invalid.txt">Повреждённый JSON</option><option value="shape.json">Неверные поля</option><option value="503">HTTP 503 (имитация)</option></select></label>
+  </section>
+  <section id="data" aria-label="Результат" aria-busy="false">
+    <p id="status" role="status">Ещё не загружено</p>
+    <ul id="list"></ul>
+  </section>
+  <details open><summary>Журнал операций</summary><ol id="log" aria-live="polite"></ol></details>
+</main>
+<script type="module" src="./main.js"></script>
+</html>

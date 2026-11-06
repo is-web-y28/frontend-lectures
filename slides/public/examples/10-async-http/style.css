@@ -1,0 +1,58 @@
+:root { font: 16px/1.45 system-ui, sans-serif; color: #24313b; background: #fffaf6; }
+body { margin: 0; } main { max-width: 850px; margin: auto; padding: 18px; }
+h1 { font-size: 1.25rem; margin: 0 0 8px; } p { margin: 8px 0; }
+section { margin-block: 12px; } button, select { font: inherit; padding: 7px 10px; border: 1px solid #a8a09c; border-radius: 6px; background: white; color: inherit; }
+button { cursor: pointer; margin: 4px; } button:disabled { opacity: .5; cursor: default; }
+:focus-visible { outline: 3px solid #b73d25; outline-offset: 3px; }
+pre { font-size: .9rem; overflow: auto; padding: 12px; background: #f0e9e3; }
+#data { border: 1px solid #d6c9bf; border-radius: 8px; padding: 10px; }
+#log { max-height: 150px; overflow: auto; font-size: .85rem; }
+[hidden] { display: none !important; } label { display: inline-block; margin: 4px; }
+@media (max-width: 500px) { main { padding: 12px; } button { display: block; width: 100%; margin: 8px 0; } }
+
+#event-source { max-height: 12em; line-height: 1.3; }
+
+@media (min-width: 650px) {
+  body[data-demo="event-loop"] main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: 18px;
+    padding: 12px;
+  }
+  body[data-demo="event-loop"] h1,
+  body[data-demo="event-loop"] #description { grid-column: 1 / -1; }
+  body[data-demo="event-loop"] #description { font-size: .85rem; }
+  body[data-demo="event-loop"] #event-loop { min-width: 0; margin-top: 4px; }
+  body[data-demo="event-loop"] details { min-width: 0; padding-top: 8px; }
+  body[data-demo="event-loop"] #event-source { max-height: 10em; font-size: .8rem; }
+  body[data-demo="event-loop"] #log { max-height: 15em; }
+}
+
+@media (min-width: 650px) {
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 6px 18px;
+    padding: 12px;
+    font-size: .85rem;
+  }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) h1,
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) #description { grid-column: 1 / -1; margin: 0; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) h1 { font-size: 1.1rem; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) #description { font-size: .8rem; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) :is(#full, #waiting, #state) {
+    grid-column: 1;
+    grid-row: 3 / 5;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 4px 0;
+  }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) :is(#full, #waiting, #state) label { display: flex; flex-direction: column; gap: 2px; margin: 0; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) :is(#full, #waiting, #state) button,
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) :is(#full, #waiting, #state) select { margin: 0; padding: 5px 8px; min-width: 0; width: 100%; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) #data { grid-column: 2; margin: 4px 0 0; min-width: 0; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) #list { padding-left: 20px; margin: 6px 0; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) details { grid-column: 2; min-width: 0; }
+  body:is([data-demo="full"], [data-demo="waiting"], [data-demo="state"]) #log { max-height: 90px; margin-block: 6px; }
+}
