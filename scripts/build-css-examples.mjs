@@ -31,6 +31,12 @@ const tokenDemoResult = sass.compile(resolve(sourceDirectory, 'token-demo.scss')
 })
 await writeGenerated('token-demo.css', tokenDemoResult.css)
 
+const scenarioResult = sass.compile(resolve(sourceDirectory, 'scenario.scss'), {
+  style: 'expanded',
+  loadPaths: [sourceDirectory],
+})
+await writeGenerated('scenario.css', scenarioResult.css)
+
 const prefixesSource = resolve(sourceDirectory, 'prefixes.css')
 const prefixesResult = await postcss([
   autoprefixer({

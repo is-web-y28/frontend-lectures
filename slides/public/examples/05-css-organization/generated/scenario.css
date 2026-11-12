@@ -1,0 +1,26 @@
+@layer overrides, components;
+@layer components {
+  .event-card {
+    border: 3px solid #0f766e;
+    padding: 1rem;
+  }
+  .event-card_featured {
+    box-shadow: inset 0.35rem 0 #0f766e;
+  }
+  .event-card__action {
+    background: #0f766e;
+    color: white;
+    padding: 0.5rem 0.75rem;
+  }
+  .event-card__action:hover:not(:disabled) {
+    background: #115e59;
+  }
+  .event-card__action:focus-visible {
+    outline: 3px solid color-mix(in srgb, #0f766e 45%, white);
+    outline-offset: 3px;
+  }
+  .event-card__action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
