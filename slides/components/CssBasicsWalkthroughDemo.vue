@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import HighlightedCode from './HighlightedCode.vue'
 
-type DemoMode = 'selectors' | 'cascade' | 'box-sizing' | 'descendant'
+type DemoMode = 'selectors' | 'cascade' | 'box-sizing' | 'descendant' | 'full'
 type SelectorChoice = 'nav' | 'headings' | 'action'
 type BoxSizing = 'content-box' | 'border-box'
 
@@ -14,6 +14,7 @@ const selectorChoice = ref<SelectorChoice>('nav')
 const cascadeStep = ref<1 | 2 | 3>(1)
 const boxSizing = ref<BoxSizing>('content-box')
 const descendantSpace = ref(false)
+const linkRule = ref(true)
 const iframe = ref<HTMLIFrameElement | null>(null)
 const readback = ref<Record<string, string> | null>(null)
 
@@ -78,6 +79,17 @@ const code = computed(() => {
   if (props.mode === 'selectors') return selectorDetails[selectorChoice.value].rule
   if (props.mode === 'cascade') return cascadeCss.value
   if (props.mode === 'box-sizing') return boxCss.value
+  if (props.mode === 'full') return `.frame-parent { width: 300px; }
+.event-card {
+  color: #334155; width: 100%;
+  padding: 20px; border: 1px solid #075985;
+  box-sizing: ${boxSizing.value};
+}
+${linkRule.value ? `${descendantSelector.value} { color: #15803d; }` : '/* Правило ссылки отключено */'}
+.action { color: #b91c1c; }
+.action:focus-visible {
+  outline: 3px solid #075985; outline-offset: 3px;
+}`
   return descendantCss.value
 })
 
@@ -86,6 +98,13 @@ const html = computed(() => {
   if (props.mode === 'cascade') return cascadeHtml.value
   if (props.mode === 'box-sizing') return `<div class="frame-parent">
   <article class="event-card">Frontend Meetup</article>
+</div>`
+  if (props.mode === 'full') return `<div class="frame-parent">
+  <article class="event-card">
+    <h2 id="program" tabindex="-1">Frontend Meetup</h2>
+    <p>Программа и регистрация</p>
+    <a class="action" href="#program">Открыть программу</a>
+  </article>
 </div>`
   return descendantHtml
 })
@@ -105,7 +124,7 @@ const frameBaseCss = `
 `
 
 const iframeDocument = computed(() => `<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><style>${frameBaseCss}\n${code.value}</style></head>
+<html lang="ru"><head><meta charset="utf-8"><base href="about:srcdoc"><style>${frameBaseCss}\n${props.mode === 'full' ? 'body { padding: 12px; font-size: 14px; } .event-card h2 { display: block; margin: 0; font-size: 16px; } .event-card p { margin: 8px 0; }' : ''}\n${code.value}</style></head>
 <body>${html.value}</body></html>`)
 
 const readbackSummary = computed(() => {
@@ -113,10 +132,11 @@ const readbackSummary = computed(() => {
   if (props.mode === 'selectors') return `Совпадений: ${readback.value.matches}; ${readback.value.elements}`
   if (props.mode === 'cascade') return `getComputedStyle(link).color → ${readback.value.color}`
   if (props.mode === 'box-sizing') return `border-box ${readback.value.borderBox}; content ${readback.value.contentBox}`
+  if (props.mode === 'full') return `Совпадений: ${readback.value.matches}; ссылка ${readback.value.color}; абзац ${readback.value.inherited}; внешняя ширина ${readback.value.borderBox}; содержимое ${readback.value.contentBox}`
   return `Совпадений: ${readback.value.matches}; getComputedStyle(link).color → ${readback.value.color}`
 })
 
-watch([selectorChoice, cascadeStep, boxSizing, descendantSpace, () => props.mode], () => {
+watch([selectorChoice, cascadeStep, boxSizing, descendantSpace, linkRule, () => props.mode], () => {
   readback.value = null
 })
 
@@ -160,7 +180,23 @@ function readIframe(event: Event) {
       matches: String(document.querySelectorAll(selector).length),
       color: getComputedStyle(link).color,
     }
+    if (props.mode === 'full') {
+      const card = document.querySelector<HTMLElement>('.event-card')!
+      const paragraph = document.querySelector('p')!
+      const styles = getComputedStyle(card)
+      Object.assign(readback.value, {
+        inherited: getComputedStyle(paragraph).color,
+        borderBox: `${card.getBoundingClientRect().width}px`,
+        contentBox: `${card.clientWidth - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight)}px`,
+      })
+    }
   }
+}
+
+function resetFullDemo() {
+  descendantSpace.value = false
+  boxSizing.value = 'content-box'
+  linkRule.value = true
 }
 </script>
 
@@ -172,6 +208,7 @@ function readIframe(event: Event) {
         <h3 v-if="mode === 'selectors'">Селектор выбирает реальные элементы</h3>
         <h3 v-else-if="mode === 'cascade'">Специфичность меняет итоговый цвет</h3>
         <h3 v-else-if="mode === 'box-sizing'">Размер считывается из браузера</h3>
+        <h3 v-else-if="mode === 'full'">Проверяем одну карточку</h3>
         <h3 v-else>Пробел меняет условие селектора</h3>
       </div>
 
@@ -190,9 +227,14 @@ function readIframe(event: Event) {
           {{ value }}
         </button>
       </div>
-      <div v-else class="controls" aria-label="Связь в селекторе">
+      <div v-else class="controls" aria-label="Условия оформления карточки">
         <button type="button" :aria-pressed="!descendantSpace" @click="descendantSpace = false">Без пробела</button>
         <button type="button" :aria-pressed="descendantSpace" @click="descendantSpace = true">С пробелом</button>
+        <template v-if="mode === 'full'">
+          <button type="button" :aria-pressed="linkRule" @click="linkRule = !linkRule">Правило ссылки</button>
+          <button v-for="value in ['content-box', 'border-box'] as const" :key="value" type="button" :aria-pressed="boxSizing === value" @click="boxSizing = value">{{ value }}</button>
+          <button type="button" @click="resetFullDemo">Начать заново</button>
+        </template>
       </div>
     </header>
 
