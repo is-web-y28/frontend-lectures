@@ -53,7 +53,7 @@ layout: default
 kicker: Один пример на всю лекцию
 title: Frontend Meetup как маленькая система
 ---
-<CssCascadeLayersDemo />
+<CssCascadeLayersDemo class="full-area-component" />
 <!--
 [Оставить сценарий «Обычные правила»; остальные переключатели пока не трогать.]
 

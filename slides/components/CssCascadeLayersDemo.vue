@@ -1,24 +1,31 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import HighlightedCode from './HighlightedCode.vue'
 
 type LayerCase = 'normal' | 'unlayered' | 'important'
 
 const selectedCase = ref<LayerCase>('normal')
+const iframe = ref<HTMLIFrameElement | null>(null)
+const background = ref<string | null>(null)
+
+watch(selectedCase, () => { background.value = null })
+
+function readBackground(event: Event) {
+  const frame = event.currentTarget as HTMLIFrameElement
+  if (frame !== iframe.value) return
+  const card = frame.contentDocument?.getElementById('event-card')
+  if (card) background.value = getComputedStyle(card).backgroundColor
+}
 
 const cases: Array<{
   id: LayerCase
   label: string
-  winner: string
-  color: string
   explanation: string
   code: string
 }> = [
   {
     id: 'normal',
     label: 'Обычные правила',
-    winner: 'components',
-    color: '#0f766e',
     explanation: 'Слой components объявлен позже base, поэтому его .card побеждает #event-card.card из base — специфичность сравнивается только внутри слоя.',
     code: `@layer base, components;
 
@@ -32,8 +39,6 @@ const cases: Array<{
   {
     id: 'unlayered',
     label: 'Обычное вне слоя',
-    winner: 'не в слое',
-    color: '#7c3aed',
     explanation: 'Для обычных деклараций правило вне @layer стоит выше всех слоёв. Оно побеждает и base, и components.',
     code: `@layer base, components;
 
@@ -48,8 +53,6 @@ const cases: Array<{
   {
     id: 'important',
     label: '!important',
-    winner: 'base',
-    color: '#be123c',
     explanation: 'Для !important порядок слоёв обратный: первый base выше components. Любая !important-декларация в слое также выше !important вне слоёв.',
     code: `@layer base, components;
 
@@ -79,7 +82,7 @@ const iframeDocument = computed(() => `<!doctype html>
 </style>
 </head>
 <body>
-  <article id="event-card" class="card">Итоговый цвет: ${activeCase.value.winner}<span>Браузер вычислил background</span></article>
+  <article id="event-card" class="card">Frontend Meetup<span>Фон задают правила справа</span></article>
 </body>
 </html>`)
 </script>
@@ -110,14 +113,17 @@ const iframeDocument = computed(() => `<!doctype html>
         <p class="panel-label">Результат, который рисует браузер</p>
         <div class="iframe-stage">
           <iframe
+            ref="iframe"
             :key="selectedCase"
             :srcdoc="iframeDocument"
-            sandbox
-            :title="`Каскад CSS: победитель — ${activeCase.winner}`"
+            sandbox="allow-same-origin"
+            :title="`Каскад CSS: ${activeCase.label}`"
+            @load="readBackground"
           />
         </div>
         <p class="winner" aria-live="polite">
-          Победитель: <strong :style="{ color: activeCase.color }">{{ activeCase.winner }}</strong>
+          <template v-if="background">Вычислено браузером: <code>background {{ background }}</code></template>
+          <template v-else>Читаем вычисленный фон…</template>
         </p>
       </div>
 
