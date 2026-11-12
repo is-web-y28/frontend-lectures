@@ -6,6 +6,7 @@ import { ref, watchEffect } from 'vue'
 const createHighlighter = createBundledHighlighter({
   langs: {
     css: () => import('@shikijs/langs/css'),
+    scss: () => import('@shikijs/langs/scss'),
     html: () => import('@shikijs/langs/html'),
     http: () => import('@shikijs/langs/http'),
   },
@@ -19,7 +20,7 @@ const { codeToHtml } = createSingletonShorthands(createHighlighter)
 
 const props = withDefaults(defineProps<{
   code: string
-  lang?: 'css' | 'html' | 'http' | 'text'
+  lang?: 'css' | 'scss' | 'html' | 'http' | 'text'
   strikeLines?: number[]
 }>(), {
   lang: 'text',
