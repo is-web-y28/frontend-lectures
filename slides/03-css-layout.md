@@ -235,15 +235,15 @@ label: В обычной горизонтальной записи
 left:
   title: Inline — вдоль строки
   items:
-    - "`inline-size` ≈ `width`"
-    - "`margin-inline-start` ≈ `margin-left`"
-    - "Направление зависит от `direction`"
+    - "<code>inline-size</code> ≈ <code>width</code>"
+    - "<code>margin-inline-start</code> ≈ <code>margin-left</code>"
+    - "Направление зависит от <code>direction</code>"
 right:
   title: Block — от строки к строке
   items:
-    - "`block-size` ≈ `height`"
-    - "`inset-block-start` ≈ `top`"
-    - "Направление зависит от `writing-mode`"
+    - "<code>block-size</code> ≈ <code>height</code>"
+    - "<code>inset-block-start</code> ≈ <code>top</code>"
+    - "Направление зависит от <code>writing-mode</code>"
 ---
 <!--
 До свойств размера договоримся о словаре. В привычной горизонтальной записи `inline` идёт слева направо по строке, поэтому `inline-size` похож на `width`; `block` идёт сверху вниз, поэтому `block-size` похож на `height`. Это соответствие, а не определение свойств.
@@ -346,7 +346,7 @@ items:
   - { term: visible, desc: "Содержание рисуется за границей; прокрутки контейнера нет" }
   - { term: hidden, desc: "Содержание обрезано; пользователь не получает полосу прокрутки" }
   - { term: auto, desc: "Прокрутка появляется, только когда она необходима" }
-  - { term: scroll container, desc: "`overflow` меняет ближайшую границу для `sticky`" }
+  - { term: scroll container, desc: "<code>overflow</code> меняет ближайшую границу для <code>sticky</code>" }
 ---
 <!--
 Переполнение — не сигнал немедленно обрезать текст. Сначала сохраняем длинное название или ссылку и выясняем, должно ли оно переноситься, увеличивать блок или прокручиваться. `overflow: visible` оставляет рисование за краем; это не создаёт область прокрутки. `hidden` именно обрезает, поэтому для основного текста часто скрывает важную информацию.
@@ -542,8 +542,8 @@ kicker: Stacking context
 title: "Потомок с <code>z-index: 999</code> не покидает контекст предка"
 notes:
   - "Индексы сравниваются сначала между контекстами предков."
-  - "`position` вместе с не-`auto` z-index создаёт частый контекст."
-  - "`transform` и `opacity` тоже могут создать контекст."
+  - "<code>position</code> вместе с не-<code>auto</code> z-index создаёт частый контекст."
+  - "<code>transform</code> и <code>opacity</code> тоже могут создать контекст."
 ---
 ```css
 .card  { position: relative; z-index: 1; }
@@ -677,8 +677,8 @@ layout: code-explain
 kicker: Промежутки и перенос
 title: gap задаёт расстояние между элементами, wrap — разрешает перенос
 notes:
-  - "`gap` не добавляет отступ по краям"
-  - "`flex-wrap: wrap` разрешает перенос на новую строку"
+  - "<code>gap</code> не добавляет отступ по краям"
+  - "<code>flex-wrap: wrap</code> разрешает перенос на новую строку"
 ---
 ```css
 .tags {
@@ -716,7 +716,7 @@ title: <code>flex-shrink</code> не обещает сжать длинное с
 notes:
   - "Доступное место может стать меньше content minimum."
   - "Автоматический минимум защищает содержимое от сжатия."
-  - "`min-inline-size: 0` разрешает сжатие; перенос выбираем отдельно."
+  - "<code>min-inline-size: 0</code> разрешает сжатие; перенос выбираем отдельно."
 ---
 ```css
 .event__title {
@@ -797,9 +797,9 @@ layout: code-explain
 kicker: Автоматический минимум Grid
 title: <code>1fr</code> делит остаток, но трек тоже слышит содержимое
 notes:
-  - "`1fr` — гибкий максимум, не обязательно нулевой минимум."
+  - "<code>1fr</code> — гибкий максимум, не обязательно нулевой минимум."
   - "Длинный min-content потомка может расширить трек."
-  - "`minmax(0, 1fr)` явно разрешает треку сжаться."
+  - "<code>minmax(0, 1fr)</code> явно разрешает треку сжаться."
 ---
 ```css
 .schedule {
@@ -1015,7 +1015,7 @@ kicker: A1 · Диагностика
 title: Схлопывание margin — правило normal flow, не причина перейти на Flexbox
 notes:
   - "Соседние блочные vertical margins в normal flow могут схлопнуться."
-  - "Временный `display: flow-root` создаёт новый block formatting context."
+  - "Временный <code>display: flow-root</code> создаёт новый block formatting context."
   - "После диагностики выбираем структурное решение, а не добавляем float."
 ---
 ```css
