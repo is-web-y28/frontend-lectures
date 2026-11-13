@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 452" role="img" aria-labelledby="title desc">
+<title id="title">Жизненный цикл экземпляра Vue: создание, обновление, удаление</title>
+<desc id="desc">После setup и beforeMount Vue создаёт DOM и вызывает mounted. Изменение используемого состояния повторяет beforeUpdate, обновление DOM и updated без нового setup. При удалении вызывается beforeUnmount, удаляется DOM и останавливаются эффекты, затем unmounted.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#dc6147"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#293b40}.label{font-size:15px;letter-spacing:1px;font-weight:700}.name{font-size:18px;font-weight:700}.hint{font-size:14px;fill:#50666b}.route{fill:none;stroke:#dc6147;stroke-width:2;stroke-linejoin:round;marker-end:url(#arrow)}</style>
+<text class="label" x="20" y="22">СОЗДАНИЕ · ОДИН РАЗ НА ЭКЗЕМПЛЯР</text>
+<text class="label" x="20" y="164">ОБНОВЛЕНИЕ · ПОВТОРЯЕТСЯ БЕЗ НОВОГО SETUP</text>
+<text class="label" x="20" y="332">УДАЛЕНИЕ · ЗАВЕРШЕНИЕ ЭКЗЕМПЛЯРА</text>
+<rect x="20" y="40" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="125" y="69" text-anchor="middle">setup / script setup</text>
+<text class="hint" x="125" y="92" text-anchor="middle">состояние и регистрация</text>
+<rect x="270" y="40" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="375" y="69" text-anchor="middle">onBeforeMount</text>
+<text class="hint" x="375" y="92" text-anchor="middle">DOM ещё не создан</text>
+<rect x="520" y="40" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="625" y="69" text-anchor="middle">Первый рендер</text>
+<text class="hint" x="625" y="92" text-anchor="middle">создание и вставка DOM</text>
+<rect x="770" y="40" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="875" y="69" text-anchor="middle">onMounted</text>
+<text class="hint" x="875" y="92" text-anchor="middle">DOM уже доступен</text>
+<path class="route" d="M230 75H266"/>
+<path class="route" d="M480 75H516"/>
+<path class="route" d="M730 75H766"/>
+<path class="route" d="M875 110V184"/>
+<rect x="20" y="188" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="125" y="217" text-anchor="middle">onBeforeUpdate</text>
+<text class="hint" x="125" y="240" text-anchor="middle">новое state, старый DOM</text>
+<rect x="270" y="188" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="375" y="217" text-anchor="middle">Обновление DOM</text>
+<text class="hint" x="375" y="240" text-anchor="middle">Vue применяет изменения</text>
+<rect x="520" y="188" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="625" y="217" text-anchor="middle">onUpdated</text>
+<text class="hint" x="625" y="240" text-anchor="middle">DOM обновлён</text>
+<rect x="770" y="188" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="875" y="217" text-anchor="middle">Экземпляр живёт</text>
+<text class="hint" x="875" y="240" text-anchor="middle">состояние сохраняется</text>
+<path class="route" d="M230 223H266"/>
+<path class="route" d="M480 223H516"/>
+<path class="route" d="M730 223H766"/>
+<path class="route" d="M875 258V285H125V262"/>
+<rect x="220" y="272" width="530" height="26" fill="#f3f1e9"/><text class="hint" x="485" y="290" text-anchor="middle">Изменилось состояние, используемое при рендеринге</text>
+<path class="route" d="M875 285V352"/>
+<text class="hint" x="850" y="318" text-anchor="end">v-if = false / смена key</text>
+<rect x="770" y="356" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="875" y="385" text-anchor="middle">onBeforeUnmount</text>
+<text class="hint" x="875" y="408" text-anchor="middle">экземпляр ещё работает</text>
+<rect x="520" y="356" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="625" y="385" text-anchor="middle">Удаление DOM</text>
+<text class="hint" x="625" y="408" text-anchor="middle">остановка эффектов Vue</text>
+<rect x="270" y="356" width="210" height="70" rx="12" fill="#fff7f2" stroke="#e6ad9d"/>
+<text class="name" x="375" y="385" text-anchor="middle">onUnmounted</text>
+<text class="hint" x="375" y="408" text-anchor="middle">потомки уже удалены</text>
+<rect x="20" y="356" width="210" height="70" rx="12" fill="#eef3f2" stroke="#b5c7c6"/>
+<text class="name" x="125" y="385" text-anchor="middle">Экземпляр завершён</text>
+<text class="hint" x="125" y="408" text-anchor="middle">новое появление → setup</text>
+<path class="route" d="M770 391H734"/>
+<path class="route" d="M520 391H484"/>
+<path class="route" d="M270 391H234"/>
+</svg>

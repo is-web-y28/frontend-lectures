@@ -1,7 +1,7 @@
 {
   "name": "is-web-y28-frontend-lectures",
   "private": true,
-  "workspaces": ["examples/08-tooling-typescript", "examples/09-vue-reactivity"],
+  "workspaces": ["examples/08-tooling-typescript", "examples/09-vue-reactivity", "examples/11-vue-components"],
   "scripts": {
  "dev:01": "slidev slides/01-web-html.md --open",
  "dev:02": "slidev slides/02-css-basics.md --open",
@@ -14,6 +14,12 @@
  "dev:08": "slidev slides/08-tooling-typescript.md --open",
  "dev:09": "slidev slides/09-vue-reactivity.md --open",
  "dev:10": "slidev slides/10-async-http.md --open",
+ "dev:11": "slidev slides/11-vue-components.md --open",
+ "build:11": "slidev build slides/11-vue-components.md --out dist/11-vue-components --without-notes",
+ "dev:components-example": "npm run dev --workspace examples/11-vue-components --",
+ "check:components-example": "npm run check --workspace examples/11-vue-components",
+ "build:components-example": "npm run build --workspace examples/11-vue-components",
+ "preview:components-example": "npm run preview --workspace examples/11-vue-components --",
  "build": "npm run build:all",
  "build:01": "slidev build slides/01-web-html.md --out dist/01-web-html --without-notes",
  "build:02": "slidev build slides/02-css-basics.md --out dist/02-css-basics --without-notes",
