@@ -13,11 +13,15 @@ export function parseRegistrations(value) {
   return value
 }
 
-/** @param {string | URL} url @param {AbortSignal} [signal] */
-export async function loadRegistrations(url, signal) {
+/**
+ * @param {string | URL} url
+ * @param {AbortSignal} [signal]
+ * @param {(value: unknown) => Registration[]} [parse]
+ */
+export async function loadRegistrations(url, signal, parse = parseRegistrations) {
   const response = await fetch(url, { signal })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
-  return parseRegistrations(await response.json())
+  return parse(await response.json())
 }
 
 export function wait(ms, signal) {
