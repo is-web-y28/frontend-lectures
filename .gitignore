@@ -4,3 +4,4 @@ dist/
 .agents/skills/svg-creator-skill/
 slides/public/examples/08-tooling-typescript/
 examples/08-tooling-typescript/.env*.local
+slides/public/examples/12-vue-architecture/

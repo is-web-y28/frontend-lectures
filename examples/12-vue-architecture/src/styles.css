@@ -1,0 +1,67 @@
+:root {
+  color: #223127;
+  background: #f7faf7;
+  font: 16px/1.5 system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { max-width: 56rem; margin: 0 auto; padding: 1rem; }
+h1, h2, p { margin: 0 0 0.55rem; }
+h1 { font-size: clamp(1.3rem, 4vw, 1.8rem); }
+h2 { font-size: 1.1rem; }
+a { color: #16533d; text-underline-offset: 0.16em; }
+a[aria-current="page"] { font-weight: 700; }
+:focus-visible { outline: 3px solid #bd4827; outline-offset: 2px; }
+main:focus { outline: none; }
+
+.app-header, .toolbar, .registration-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.app-header { border-bottom: 1px solid #d3ddd6; margin-bottom: 0.9rem; padding-bottom: 0.75rem; }
+.total { font-weight: 700; margin: 0; }
+.panel { border: 1px solid #d3ddd6; padding: 0.8rem; border-radius: 0.6rem; background: #fff; }
+.panel .toolbar { margin-bottom: 0.5rem; }
+.registration-form { align-items: end; margin-bottom: 0.75rem; }
+.registration-form label { display: block; }
+input, select, button { font: inherit; }
+input, select, button { border: 1px solid #76877c; border-radius: 0.3rem; padding: 0.25rem 0.45rem; }
+input { max-width: 100%; }
+input[type="number"] { width: 5rem; }
+button { color: #203b2d; background: #edf4ef; cursor: pointer; }
+button:disabled { opacity: 0.62; cursor: default; }
+.registration-list, .schedule-list { list-style: none; padding: 0; margin: 0; }
+.registration-list li, .schedule-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.25rem 1rem; padding: 0.25rem 0; }
+[role="alert"] { color: #8e2814; font-weight: 600; }
+.diagnostic, .address { margin: 0.65rem 0 0; font-size: 0.88rem; color: #455f51; overflow-wrap: anywhere; }
+.diagnostic ol { margin: 0.25rem 0 0; padding-inline-start: 1.25rem; }
+.diagnostic summary { cursor: pointer; margin-bottom: 0.3rem; }
+
+.api-diagnostics { margin-bottom: 0.6rem; }
+.api-diagnostics-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 0.4rem 1rem;
+}
+
+.api-diagnostics-body ol {
+  flex: 1 1 15rem;
+  max-block-size: 4.2em;
+  overflow-y: auto;
+  margin: 0;
+}
+
+:root[data-embedded] { font-size: 14px; line-height: 1.4; }
+[data-embedded] body { padding: 0.65rem 0.8rem; }
+[data-embedded] h1 { font-size: 1.4rem; }
+[data-embedded] .app-header { margin-bottom: 0.55rem; padding-bottom: 0.5rem; }
+[data-embedded] .panel { padding: 0.6rem; }
+[data-embedded] .registration-form { margin-bottom: 0.5rem; }
+[data-embedded] .registration-list li,
+[data-embedded] .schedule-list li { padding-block: 0.2rem; }
+[data-embedded] .diagnostic,
+[data-embedded] .address { margin-top: 0.4rem; }

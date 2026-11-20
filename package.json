@@ -1,7 +1,7 @@
 {
   "name": "is-web-y28-frontend-lectures",
   "private": true,
-  "workspaces": ["examples/08-tooling-typescript", "examples/09-vue-reactivity", "examples/11-vue-components"],
+  "workspaces": ["examples/08-tooling-typescript", "examples/09-vue-reactivity", "examples/11-vue-components", "examples/12-vue-architecture"],
   "scripts": {
  "dev:01": "slidev slides/01-web-html.md --open",
  "dev:02": "slidev slides/02-css-basics.md --open",
@@ -15,6 +15,9 @@
  "dev:09": "slidev slides/09-vue-reactivity.md --open",
  "dev:10": "slidev slides/10-async-http.md --open",
  "dev:11": "slidev slides/11-vue-components.md --open",
+ "dev:architecture-example": "npm run dev --workspace examples/12-vue-architecture --",
+ "check:architecture-example": "npm run check --workspace examples/12-vue-architecture",
+ "build:architecture-example": "node scripts/build-architecture-example.mjs",
  "build:11": "slidev build slides/11-vue-components.md --out dist/11-vue-components --without-notes",
  "dev:components-example": "npm run dev --workspace examples/11-vue-components --",
  "check:components-example": "npm run check --workspace examples/11-vue-components",
