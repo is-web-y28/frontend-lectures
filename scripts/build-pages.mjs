@@ -13,9 +13,11 @@ if (!values.base?.startsWith('/') || values.base.startsWith('//') || /[?#]/.test
 }
 
 // public/ must contain compiled JavaScript before any deck copies its assets.
-const examples = spawnSync(process.execPath, ['scripts/build-typescript-examples.mjs'], { stdio: 'inherit' })
-if (examples.error) throw examples.error
-if (examples.status !== 0) process.exit(examples.status ?? 1)
+for (const script of ['build-typescript-examples.mjs', 'build-architecture-example.mjs']) {
+  const examples = spawnSync(process.execPath, [`scripts/${script}`], { stdio: 'inherit' })
+  if (examples.error) throw examples.error
+  if (examples.status !== 0) process.exit(examples.status ?? 1)
+}
 
 const base = `${values.base.replace(/\/+$/, '')}/`
 const redirectParameter = '__slidev_route'
